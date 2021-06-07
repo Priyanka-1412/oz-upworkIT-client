@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-// import Link from "@material-ui/core/Link";
+import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 
 const SERVER_URL = "http://localhost:3000/profiles";
 
@@ -63,6 +63,17 @@ const Developers = (props) => {
             <p className="project__name">{profile.name}</p>
         </Link>
         <li className="profiles" key={profile.id} >
+          <CloudinaryContext cloudName="didtkbpn7">
+          <Image publicId={profile.imageUrl}>
+            <Transformation
+              crop="scale"
+              width="300"
+              height="200"
+              dpr="auto"
+              responsive_placeholder="blank"
+            />
+          </Image>
+        </CloudinaryContext>
           title:{profile.title},
           Skills:{profile.skills},
           suburb:{profile.suburb},

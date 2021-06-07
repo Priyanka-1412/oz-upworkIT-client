@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TagsInput from 'react-tagsinput';
+
+
 import 'react-tagsinput/react-tagsinput.css';
 
 import { Redirect } from "react-router-dom";
@@ -13,7 +15,7 @@ class CreateProfile extends Component {
     this.state = {
       profiles:
         {
-          imageUrl: '',
+          imageUrl: null,
           name: '',
           skills: [],
           title: '',
@@ -23,6 +25,7 @@ class CreateProfile extends Component {
           portfolio: '',
           linkedIn: '',
           redirect: null,
+          previewSource: '',
         },
         tags: []
     };
@@ -38,6 +41,7 @@ class CreateProfile extends Component {
     this._handleChange = this._handleChange.bind(this)
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleCreate = this._handleCreate.bind(this);
+
   }
 
 componentDidMount() {
@@ -49,13 +53,19 @@ componentDidMount() {
     });
   };
   fetchProfile();
-}
-
+};
   _handleName(event) {
     this.setState({name: event.target.value });
   };
   _handleImgeUrl(event) {
-    this.setState({imageUrl: event.target.value});
+    this.setState({imageUrl: event.target.files[0]});
+    const file = event.target.files[0]
+    const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          this.setState({previewSource: reader.result});
+        };
+    //previewFile(this.state.imageUrl);
   };
   _handletitle(event) {
     this.setState({title: event.target.value});
@@ -84,6 +94,18 @@ componentDidMount() {
 
   _handleSubmit(event) {
     event.preventDefault();
+    // const uploadImage = async (base64EncodedImage) => {
+    //     try {
+    //     await fetch('/api/upload', {
+    //         method: 'POST',
+    //         body: JSON.stringify({ data: base64EncodedImage }),
+    //         headers: { 'Content-Type': 'application/json' },
+    //     });
+    //
+    // } catch (err) {
+    //     console.error(err);
+    // }
+    // }
     this.setState({
       skills: [],
       name: '',
@@ -108,7 +130,8 @@ componentDidMount() {
       postcode: this.state.postcode,
       resume: this.state.resume,
       portfolio: this.state.portfolio,
-      linkedIn: this.state.linkedIn
+      linkedIn: this.state.linkedIn,
+      previewSource: this.state.previewSource
     };
     console.log(data);
 
@@ -139,14 +162,13 @@ componentDidMount() {
         />
 
         <h3>Profile Picture</h3>
-        <img
+        <input
           className="form-control"
           onChange={this._handleImgeUrl}
-          value={this.state.imageUrl}
-          type="text"
-          placeholder="title"
+
+          type="file"
+          name="image"
           alt="imageUrl"
-          required
         />
 
         <h3>Title</h3>
@@ -192,7 +214,7 @@ componentDidMount() {
           className="form-control"
           onChange={this._handleResume}
           value={this.state.resume}
-          type="text"
+          type="file"
           placeholder="Resume"
         />
 
@@ -222,6 +244,13 @@ componentDidMount() {
           value="Create"
         />
       </form>
+      {this.state.previewSource && (
+                <img
+                    src={this.state.previewSource}
+                    alt="chosen"
+                    style={{ height: '300px' }}
+                />
+            )}
     </div>
   );
   }
