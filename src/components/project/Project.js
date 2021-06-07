@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom";
 // import Form from 'react-bootstrap/Form';
 // import ProductDetails from "./ProjectDetails"
 const SERVER_URL = "http://localhost:3000/projects";
@@ -49,17 +49,18 @@ render() {
 };
 
 const ProjectList = (props) => {
+  console.log(props.projects);
   return (
     <div>
       {props.projects.map((project) => (
         <div >
-          <Link to={`project/${project.id}`} >
+          <Link to={`project/${project._id}`} >
               <p className="project__name">{project.name}</p>
           </Link>
-          
-        <li className="projects" key={project.id}  >
-          Description:{project.description}, Skills:{project.skills}, date:{project.datePosted}, Payment Type:{project.paymentType}, Estimated Budget:{project.estimatedBudget}
-        </li>
+
+          <li className="projects" key={project._id}  >
+            Description:{project.description}, Skills:{project.skills}, date:{project.datePosted}, Payment Type:{project.paymentType}, Estimated Budget:{project.estimatedBudget}
+          </li>
         </div>
       ))}
     </div>
