@@ -7,111 +7,77 @@ const SERVER_URL = "http://localhost:3000/profiles";
 
 function UpdateProfile ({ match }) {
   const profile_id = match.params.profileId;
+  let { data: profile, isLoading, isError, error } =
+    useQuery(["Profile", profile_id], () => axios(`${SERVER_URL}/${profile_id}`).then((res) => res.data));
 
-  let { data: profile, isLoading, isError, error } = useQuery(["Profile", profile_id], () => axios(`${SERVER_URL}/${profile_id}`).then((res) => res.data));
-
-  //var data = profile;
+  console.log("profile:", profile);
 
   if (! profile) profile = {};
 
-  let [redirect, setRedirect] = React.useState("")
-  let [imageUrl, setImageUrl] = React.useState(profile.imageUrl);
-  let [name, setName] = React.useState(profile.name);
-  let [title, setTitle] = React.useState(profile.title);
-  let [skills, setSkills] = React.useState(profile.skills);
-  let [suburb, setSuburb] = React.useState(profile.suburb);
-  let [postcode, setPostcode] = React.useState(profile.postcode);
-  let [resume, setResume] = React.useState(profile.resume);
-  let [portfolio, setPortfolio] = React.useState(profile.portfolio);
-  let [linkedIn, setLinkedIn] = React.useState(profile.linkedIn);
-  let [previewSource, setPreviewSource] = React.useState("");
+  const [redirect, setRedirect] = React.useState("")
+  const [imageUrl, setImageUrl] = React.useState(profile.imageUrl);
+  const [name, setName] = React.useState(profile.name);
+  const [title, setTitle] = React.useState(profile.title);
+  const [skills, setSkills] = React.useState(profile.skills);
+  const [suburb, setSuburb] = React.useState(profile.suburb);
+  const [postcode, setPostcode] = React.useState(profile.postcode);
+  const [resume, setResume] = React.useState(profile.resume);
+  const [portfolio, setPortfolio] = React.useState(profile.portfolio);
+  const [linkedIn, setLinkedIn] = React.useState(profile.linkedIn);
+  const [previewSource, setPreviewSource] = React.useState('');
+
 
   if (redirect) {
     return <Redirect to={redirect} />
   }
   const handleSave = (event) => {
-    console.log("profile before save:", profile);
+
     const data = profile;
-    console.log("data:", data);
-    data.previewSource = {previewSource};
-    console.log("data after preview:", data);
+
+    console.log(data);
 
     axios.put(SERVER_URL+"/"+profile_id, data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-
     setRedirect(`/profile/${profile_id}`);
   }
   const handleName = (event) => {
     profile.name = event.target.value;
-    setName(event.target.value);
+
   }
   const handleImageUrl = (event) => {
-    profile.imageUrl = event.target.value;
+    profile.imageUrl = event.target.files[0]
+    setImageUrl(event.target.files[0]);
     const file = event.target.files[0]
-    //let result = previewFile(file);
     const reader = new FileReader();
-
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setPreviewSource(reader.result)
-      //profile.previewSource = reader.result;
-      //result = reader.result;
+      this.setPreviewSource(reader.result);
     };
-    //console.log(profile);
-    //profile = profile;
-    //console.log("result=",result);
-    //data.previewSource = profile.previewSource;
-    //console.log(profile);
-    //setPreviewSource(profile.previewSource);
-    setImageUrl(event.target.value)
   }
-
-  // function previewFile(filePath) {
-  //   const preview = new Image();
-  //   const file = document.querySelector('input[type=file]').files[0];
-  //   const reader = new FileReader();
-  //
-  //   reader.addEventListener("load", function () {
-  //     // convert image file to base64 string
-  //     preview.src = reader.result;
-  //   }, false);
-  //
-  //   if (filePath) {
-  //     reader.readAsDataURL(file);
-  //   }
-  //
-  //   return preview;
-  // }
   const handletitle = (event) => {
     profile.title = event.target.value
-    setTitle(event.target.value)
+
   }
   const handleSkills = (event) => {
     profile.skills = event.target.value
-    setSkills(event.target.value)
   }
   const handleSuburb = (event) => {
     profile.suburb = event.target.value
-    setSuburb(event.target.value)
   }
   const handlePostcode = (event) => {
     profile.postcode = event.target.value
-    setPostcode(event.target.value)
   }
   const handleResume = (event) => {
     profile.resume = event.target.value
-    setResume(event.target.value)
   }
   const handlePorfolio = (event) => {
     profile.portfolio = event.target.value
-    setPortfolio(event.target.value)
   }
   const handleLinkedIn = (event) => {
     profile.linkedIn = event.target.value
-    setLinkedIn(event.target.value)
   }
 
   if (isLoading) return <div className="loading">Loading...</div>;
@@ -128,11 +94,10 @@ function UpdateProfile ({ match }) {
         <input
           className="form-control"
           onChange={handleName}
-          value={name}
+          value={profile.name}
           placeholder="name"
           required
         />
-
         <h3>Profile Picture</h3>
         <input
           className="form-control"
@@ -206,8 +171,8 @@ function UpdateProfile ({ match }) {
           type="text"
           placeholder="Portfolio"
         />
-
       </form>
+
     </div>
       <button id="save" onClick={handleSave} >Save Changes</button>
     </>

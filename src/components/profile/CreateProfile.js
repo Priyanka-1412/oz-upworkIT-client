@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TagsInput from 'react-tagsinput';
-
+import AuthService from "../../services/auth.service";
+import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 
 import 'react-tagsinput/react-tagsinput.css';
 
@@ -26,6 +27,8 @@ class CreateProfile extends Component {
           linkedIn: '',
           redirect: null,
           previewSource: '',
+          userReady: false,
+          currentUser: { username: "" }
         },
         tags: []
     };
@@ -45,6 +48,11 @@ class CreateProfile extends Component {
   }
 
 componentDidMount() {
+  const currentUser = AuthService.getCurrentUser();
+
+  if (!currentUser) this.setState({ redirect: "/login" });
+  this.setState({ currentUser: currentUser, userReady: true })
+
   const fetchProfile = () => {
     axios.get(SERVER_URL).then((results) => {
       this.setState({
@@ -94,18 +102,7 @@ componentDidMount() {
 
   _handleSubmit(event) {
     event.preventDefault();
-    // const uploadImage = async (base64EncodedImage) => {
-    //     try {
-    //     await fetch('/api/upload', {
-    //         method: 'POST',
-    //         body: JSON.stringify({ data: base64EncodedImage }),
-    //         headers: { 'Content-Type': 'application/json' },
-    //     });
-    //
-    // } catch (err) {
-    //     console.error(err);
-    // }
-    // }
+
     this.setState({
       skills: [],
       name: '',
@@ -145,113 +142,124 @@ componentDidMount() {
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
+    };
+
+    const { currentUser } = this.state;
+
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
     }
 
     return (
-    <div className="form-group">
-      <form onSubmit={this._handleSubmit}>
-        <h1>Profile</h1>
+    <div>
+      {(this.state.userReady) ?
 
-        <h3>Name</h3>
-        <input
-          className="form-control"
-          onChange={this._handleName}
-          value={this.state.name}
-          placeholder="name"
-          required
-        />
+        <div className="form-group">
+          <form onSubmit={this._handleSubmit}>
+            <h1>Profile</h1>
 
-        <h3>Profile Picture</h3>
-        <input
-          className="form-control"
-          onChange={this._handleImgeUrl}
+            <h3>Name</h3>
+            <input
+              className="form-control"
+              onChange={this._handleName}
+              value={this.state.name}
+              placeholder="name"
+              required
+            />
 
-          type="file"
-          name="image"
-          alt="imageUrl"
-        />
+            <h3>Profile Picture</h3>
+            <input
+              className="form-control"
+              onChange={this._handleImgeUrl}
 
-        <h3>Title</h3>
-        <input
-          className="form-control"
-          onChange={this._handletitle}
-          value={this.state.title}
-          type="text"
-          placeholder="title"
-          required
-        />
+              type="file"
+              name="image"
+              alt="imageUrl"
+            />
 
-        <h3>Skills</h3>
-        <TagsInput
-          className="form-control"
-          onChange={this._handleChange}
-          value={this.state.tags}
-          type="text"
-          placeholder="Skills "
-          required
-        />
+            <h3>Title</h3>
+            <input
+              className="form-control"
+              onChange={this._handletitle}
+              value={this.state.title}
+              type="text"
+              placeholder="title"
+              required
+            />
 
-        <h3>Suburb</h3>
-        <input
-          className="form-control"
-          onChange={this._handleSuburb}
-          value={this.state.suburb}
-          type="text"
-          placeholder="Suburb"
-        />
+            <h3>Skills</h3>
+            <TagsInput
+              className="form-control"
+              onChange={this._handleChange}
+              value={this.state.tags}
+              type="text"
+              placeholder="Skills "
+              required
+            />
 
-        <h3>Postcode</h3>
-        <input
-          className="form-control"
-          onChange={this._handlePostcode}
-          value={this.state.postcode}
-          type="text"
-          placeholder="Postcode"
-        />
+            <h3>Suburb</h3>
+            <input
+              className="form-control"
+              onChange={this._handleSuburb}
+              value={this.state.suburb}
+              type="text"
+              placeholder="Suburb"
+            />
 
-        <h3>Upload Your Resume</h3>
-        <input
-          className="form-control"
-          onChange={this._handleResume}
-          value={this.state.resume}
-          type="file"
-          placeholder="Resume"
-        />
+            <h3>Postcode</h3>
+            <input
+              className="form-control"
+              onChange={this._handlePostcode}
+              value={this.state.postcode}
+              type="text"
+              placeholder="Postcode"
+            />
 
-      <h3>Connect with LinkedIn</h3>
-        <input
-          className="form-control"
-          onChange={this._handleLinkedIn}
-          value={this.state.linkedIn}
-          type="text"
-          placeholder="LInkedIn"
-        />
+            <h3>Upload Your Resume</h3>
+            <input
+              className="form-control"
+              onChange={this._handleResume}
+              value={this.state.resume}
+              type="file"
+              placeholder="Resume"
+            />
 
-        <h3>Link to Portfolio</h3>
-        <input
-          className="form-control"
-          onChange={this._handlePrtfolio}
-          value={this.state.portfolio}
-          type="text"
-          placeholder="Portfolio"
-        />
+          <h3>Connect with LinkedIn</h3>
+            <input
+              className="form-control"
+              onChange={this._handleLinkedIn}
+              value={this.state.linkedIn}
+              type="text"
+              placeholder="LInkedIn"
+            />
 
-        <input
-          className="form-control"
-          id="submit"
-          onClick={this._handleCreate}
-          type="submit"
-          value="Create"
-        />
-      </form>
-      {this.state.previewSource && (
-                <img
-                    src={this.state.previewSource}
-                    alt="chosen"
-                    style={{ height: '300px' }}
-                />
-            )}
-    </div>
+            <h3>Link to Portfolio</h3>
+            <input
+              className="form-control"
+              onChange={this._handlePrtfolio}
+              value={this.state.portfolio}
+              type="text"
+              placeholder="Portfolio"
+            />
+
+            <input
+              className="form-control"
+              id="submit"
+              onClick={this._handleCreate}
+              type="submit"
+              value="Create"
+            />
+          </form>
+
+          {this.state.previewSource && (
+            <img
+                src={this.state.previewSource}
+                alt="chosen"
+                style={{ height: '300px' }}
+            />
+          )}
+        </div>: null}
+  </div>
   );
   }
 }

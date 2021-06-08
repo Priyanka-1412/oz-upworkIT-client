@@ -64,23 +64,24 @@ const Developers = (props) => {
         </Link>
         <li className="profiles" key={profile.id} >
           <CloudinaryContext cloudName="didtkbpn7">
-          <Image publicId={profile.imageUrl}>
-            <Transformation
-              crop="scale"
-              width="300"
-              height="200"
-              dpr="auto"
-              responsive_placeholder="blank"
-            />
-          </Image>
-        </CloudinaryContext>
-          title:{profile.title},
+            <Image publicId={profile.imageUrl}>
+              <Transformation
+                crop="scale"
+                width="300"
+                height="200"
+                dpr="auto"
+                responsive_placeholder="blank"
+                />
+            </Image>
+          </CloudinaryContext>
+
+          Title:{profile.title},
           Skills:{profile.skills},
-          suburb:{profile.suburb},
-          postcode:{profile.postcode},
-          resume:{profile.postcode},
-          portfolio:{profile.portfolio},
-          linkedIn:{profile.linkedIn}
+          Suburb:{profile.suburb},
+          Postcode:{profile.postcode},
+          Resume:{profile.postcode},
+          Portfolio:{profile.portfolio},
+          LinkedIn:{profile.linkedIn}
         </li>
         </div>
       ))}

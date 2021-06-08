@@ -53,11 +53,13 @@ export default class Register extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeRole = this.onChangeRole.bind(this);
 
     this.state = {
       username: "",
       email: "",
       password: "",
+      userType: "",
       successful: false,
       message: ""
     };
@@ -81,6 +83,12 @@ export default class Register extends Component {
     });
   }
 
+  onChangeRole(e) {
+    this.setState({
+      userType: e.target.value
+    });
+  }
+
   handleRegister(e) {
     e.preventDefault();
 
@@ -95,7 +103,9 @@ export default class Register extends Component {
       AuthService.register(
         this.state.username,
         this.state.email,
-        this.state.password
+        this.state.password,
+        this.state.userType
+
       ).then(
         response => {
           this.setState({
@@ -172,6 +182,20 @@ export default class Register extends Component {
                     onChange={this.onChangePassword}
                     validations={[required, vpassword]}
                   />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="password"><span></span>How would you like to use ozUpwork?</label>
+                  <select className="form-control"
+                      value={this.state.userType}
+                      onChange={this.onChangeRole}
+                      type="text"
+                      placeholder="userType"
+                      required>
+                    <option value="" >Select Option</option>
+                    <option value="developer">Find Job</option>
+                    <option value="client">Hire Someone</option>
+                  </select>
                 </div>
 
                 <div className="form-group">

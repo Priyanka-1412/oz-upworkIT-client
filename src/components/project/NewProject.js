@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
+import AuthService from "../../services/auth.service";
+
 // import { WithContext as ReactTags } from 'react-tag-input';
 // import Form from 'react-bootstrap/Form';
 import { Redirect } from "react-router-dom";
@@ -20,7 +22,9 @@ class CreateProject extends Component {
           description: '',
           paymentType: '',
           estimatedBudget: 0,
-          redirect: null
+          redirect: null,
+          userReady: false,
+          currentUser: { username: "" }
         },
         tags: []
     };
@@ -36,6 +40,11 @@ class CreateProject extends Component {
   }
 
 componentDidMount() {
+
+  const currentUser = AuthService.getCurrentUser();
+
+  if (!currentUser) this.setState({ redirect: "/login" });
+  this.setState({ currentUser: currentUser, userReady: true })
 
   const fetchProject = () => {
     axios.get(SERVER_URL).then((results) => {
@@ -80,7 +89,8 @@ componentDidMount() {
       description: this.state.description,
       paymentType: this.state.paymentType,
       estimatedBudget: this.state.estimatedBudget,
-      redirect: "/projects"
+      redirect: "/projects",
+
     });
   };
 
@@ -101,10 +111,18 @@ componentDidMount() {
     });
   }
   render() {
+
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
+    const { currentUser } = this.state;
+
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
     }
     return (
+    <div>
+    {(this.state.userReady) ?
     <div className="form-group">
       <form onSubmit={this._handleSubmit}>
         <h1>New Project</h1>
@@ -167,6 +185,7 @@ componentDidMount() {
           value="Save"
         />
       </form>
+    </div>: null}
     </div>
   );
   }

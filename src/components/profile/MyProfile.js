@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
+import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 
 import { Redirect } from "react-router-dom";
 
@@ -28,7 +29,17 @@ function MyProfile ({ match }) {
     <>
     <h1 style={{fontSize: '4rem', textTransform: 'uppercase'}}>{name}</h1>
     <div style={{marginLeft: '20rem', padding: 'auto'}}>
-      <img src={imageUrl} alt="imageUrl"/>
+      <CloudinaryContext cloudName="didtkbpn7">
+        <Image publicId={imageUrl}>
+          <Transformation
+            crop="scale"
+            width="300"
+            height="200"
+            dpr="auto"
+            responsive_placeholder="blank" />
+      </Image>
+    </CloudinaryContext>
+
       <p> Title: {title}</p>
       <p> Skills: {skills}</p>
       <p> Suburb: {suburb}</p>

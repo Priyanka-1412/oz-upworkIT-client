@@ -24,7 +24,7 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      currentUser: undefined,
+      currentUser: null,
     };
   }
 
@@ -42,7 +42,8 @@ class App extends Component {
     AuthService.logout();
   }
 
-  render() {const { currentUser } = this.state;
+  render() {
+    const { currentUser } = this.state;
 
     return (
       <QueryClientProvider client={queryClient}>
@@ -97,11 +98,6 @@ class App extends Component {
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link>
-              </li>
-              <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
                   LogOut
                 </a>
@@ -122,6 +118,7 @@ class App extends Component {
               </li>
             </div>
           )}
+
         </nav>
 
         <div className="container mt-3">
