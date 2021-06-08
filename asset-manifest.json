@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/oz-upworkIT-client/static/css/main.513e58cb.chunk.css",
-    "main.js": "/oz-upworkIT-client/static/js/main.03059552.chunk.js",
-    "main.js.map": "/oz-upworkIT-client/static/js/main.03059552.chunk.js.map",
+    "main.js": "/oz-upworkIT-client/static/js/main.ee1fa8e0.chunk.js",
+    "main.js.map": "/oz-upworkIT-client/static/js/main.ee1fa8e0.chunk.js.map",
     "runtime-main.js": "/oz-upworkIT-client/static/js/runtime-main.1b8f4814.js",
     "runtime-main.js.map": "/oz-upworkIT-client/static/js/runtime-main.1b8f4814.js.map",
     "static/css/2.19e70f89.chunk.css": "/oz-upworkIT-client/static/css/2.19e70f89.chunk.css",
-    "static/js/2.04c8ccc6.chunk.js": "/oz-upworkIT-client/static/js/2.04c8ccc6.chunk.js",
-    "static/js/2.04c8ccc6.chunk.js.map": "/oz-upworkIT-client/static/js/2.04c8ccc6.chunk.js.map",
+    "static/js/2.ad12de3e.chunk.js": "/oz-upworkIT-client/static/js/2.ad12de3e.chunk.js",
+    "static/js/2.ad12de3e.chunk.js.map": "/oz-upworkIT-client/static/js/2.ad12de3e.chunk.js.map",
     "index.html": "/oz-upworkIT-client/index.html",
     "static/css/2.19e70f89.chunk.css.map": "/oz-upworkIT-client/static/css/2.19e70f89.chunk.css.map",
     "static/css/main.513e58cb.chunk.css.map": "/oz-upworkIT-client/static/css/main.513e58cb.chunk.css.map",
-    "static/js/2.04c8ccc6.chunk.js.LICENSE.txt": "/oz-upworkIT-client/static/js/2.04c8ccc6.chunk.js.LICENSE.txt"
+    "static/js/2.ad12de3e.chunk.js.LICENSE.txt": "/oz-upworkIT-client/static/js/2.ad12de3e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.1b8f4814.js",
     "static/css/2.19e70f89.chunk.css",
-    "static/js/2.04c8ccc6.chunk.js",
+    "static/js/2.ad12de3e.chunk.js",
     "static/css/main.513e58cb.chunk.css",
-    "static/js/main.03059552.chunk.js"
+    "static/js/main.ee1fa8e0.chunk.js"
   ]
 }
