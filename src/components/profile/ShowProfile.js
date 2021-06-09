@@ -48,7 +48,6 @@ function ShowProfile ({ match }) {
       <a> portfolio: {portfolio}</a>
       <a> LinkedIn: {linkedIn}</a>
 
-      <button id="update" onClick={handleUpdate} >Update Profile</button>
     </div>
     </>
   );

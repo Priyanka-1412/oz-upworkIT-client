@@ -23,8 +23,9 @@ function MyProfile ({ match }) {
   if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <h1>{error}</h1>;
 
-  if (profile) {
-    const { imageUrl, name, skills, title, suburb, postcode, resume, portfolio, linkedIn } = profile[0];
+  if (!profile.profile) return <p>loading</p>
+    console.log(profile)
+    const { imageUrl, name, skills, title, suburb, postcode, resume, portfolio, linkedIn } = profile.profile[0];
 
     return (
       <>
@@ -53,8 +54,6 @@ function MyProfile ({ match }) {
       </div>
       </>
     );
-
-  }
 }
 
 export default MyProfile;

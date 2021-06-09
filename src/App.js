@@ -125,7 +125,7 @@ class App extends Component {
             <Route exact path="/profile" component={CreateProfile} />
             <Route exact path="/profile/:profileId" component={(props) => <ShowProfile {...props} />} />
             <Route exact path="/user/:userId" component={ MyProfile } />
-            <Route exact path="/profile/:profileId/update" component={(props) => <UpdateProfile {...props} />} />
+            <Route exact path="/profile/:userId/update" component={UpdateProfile} />
             <Route exact path="/projects" component={Project} />
             <Route exact path="/project/:projectId" component={(props) => <ProjectDetails {...props} />}/>
             <Route exact path="/project" component={ NewProject} />

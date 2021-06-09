@@ -1,55 +1,56 @@
 import axios from "axios";
-import React from "react";
+import React, {useState} from "react";
 import { useQuery } from "react-query";
 import { Redirect } from "react-router-dom";
 
-const SERVER_URL = "http://localhost:3000/profiles";
+const SERVER_URL = "http://localhost:3000/user";
 
 function UpdateProfile ({ match }) {
-  const profile_id = match.params.profileId;
+  const user_id = match.params.userId;
 
-  let { data: profile, isLoading, isError, error } = useQuery(["Profile", profile_id], () => axios(`${SERVER_URL}/${profile_id}`).then((res) => res.data));
-
-  //var data = profile;
+  let { data: profile, isLoading, isError, error } =
+  useQuery(["Profile", user_id], () => axios(`${SERVER_URL}/${user_id}`).then((res) => res.data));
+  console.log('profile', profile)
+  let data = profile;
 
   if (! profile) profile = {};
 
-  let [redirect, setRedirect] = React.useState("")
-  let [imageUrl, setImageUrl] = React.useState(profile.imageUrl);
-  let [name, setName] = React.useState(profile.name);
-  let [title, setTitle] = React.useState(profile.title);
-  let [skills, setSkills] = React.useState(profile.skills);
-  let [suburb, setSuburb] = React.useState(profile.suburb);
-  let [postcode, setPostcode] = React.useState(profile.postcode);
-  let [resume, setResume] = React.useState(profile.resume);
-  let [portfolio, setPortfolio] = React.useState(profile.portfolio);
-  let [linkedIn, setLinkedIn] = React.useState(profile.linkedIn);
-  let [previewSource, setPreviewSource] = React.useState("");
+  let [redirect, setRedirect] = useState("")
+  let [imageUrl, setImageUrl] = useState(profile.profile[0].imageUrl);
+  let [name, setName] = useState(profile.profile[0].name);
+  let [title, setTitle] = useState(profile.profile[0].title);
+  let [skills, setSkills] = useState(profile.profile[0].skills);
+  let [suburb, setSuburb] = useState(profile.profile[0].suburb);
+  let [postcode, setPostcode] = useState(profile.profile[0].postcode);
+  let [resume, setResume] = useState(profile.profile[0].resume);
+  let [portfolio, setPortfolio] = useState(profile.profile[0].portfolio);
+  let [linkedIn, setLinkedIn] = useState(profile.profile[0].linkedIn);
+  let [previewSource, setPreviewSource] = useState("");
 
   if (redirect) {
     return <Redirect to={redirect} />
   }
   const handleSave = (event) => {
-    console.log("profile before save:", profile);
+    // console.log("profile before save:", profile);
     const data = profile;
-    console.log("data:", data);
+    // console.log("data:", data);
     data.previewSource = {previewSource};
-    console.log("data after preview:", data);
+    // console.log("data after preview:", data);
 
-    axios.put(SERVER_URL+"/"+profile_id, data, {
+    axios.put(SERVER_URL+"/"+user_id, data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    setRedirect(`/profile/${profile_id}`);
+    setRedirect(`/user/${user_id}`);
   }
   const handleName = (event) => {
-    profile.name = event.target.value;
+    profile.profile[0].name = event.target.value;
     setName(event.target.value);
   }
   const handleImageUrl = (event) => {
-    profile.imageUrl = event.target.value;
+    profile.profile[0].imageUrl = event.target.value;
     const file = event.target.files[0]
     //let result = previewFile(file);
     const reader = new FileReader();
@@ -70,33 +71,33 @@ function UpdateProfile ({ match }) {
   }
 
   const handletitle = (event) => {
-    profile.title = event.target.value
+    profile.profile[0].title = event.target.value
     setTitle(event.target.value)
   }
   const handleSkills = (event) => {
-    profile.skills = event.target.value
+    profile.profile[0].skills = event.target.value
     setSkills(event.target.value)
   }
   const handleSuburb = (event) => {
-    profile.suburb = event.target.value
+    profile.profile[0].suburb = event.target.value
     setSuburb(event.target.value)
   }
   const handlePostcode = (event) => {
-    profile.postcode = event.target.value
+    profile.profile[0].postcode = event.target.value
     setPostcode(event.target.value)
   }
   const handleResume = (event) => {
-    profile.resume = event.target.value
+    profile.profile[0].resume = event.target.value
     setResume(event.target.value)
   }
   const handlePorfolio = (event) => {
-    profile.portfolio = event.target.value
+    profile.profile[0].portfolio = event.target.value
     setPortfolio(event.target.value)
   }
   const handleLinkedIn = (event) => {
-    profile.linkedIn = event.target.value
+    profile.profile[0].linkedIn = event.target.value
     setLinkedIn(event.target.value)
-  }
+  };
 
   if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <h1>{error}</h1>;
