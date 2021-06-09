@@ -69,22 +69,6 @@ function UpdateProfile ({ match }) {
     setImageUrl(event.target.value)
   }
 
-  // function previewFile(filePath) {
-  //   const preview = new Image();
-  //   const file = document.querySelector('input[type=file]').files[0];
-  //   const reader = new FileReader();
-  //
-  //   reader.addEventListener("load", function () {
-  //     // convert image file to base64 string
-  //     preview.src = reader.result;
-  //   }, false);
-  //
-  //   if (filePath) {
-  //     reader.readAsDataURL(file);
-  //   }
-  //
-  //   return preview;
-  // }
   const handletitle = (event) => {
     profile.title = event.target.value
     setTitle(event.target.value)

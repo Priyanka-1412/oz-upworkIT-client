@@ -8,6 +8,7 @@ import Home from "./components/home.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Profile from "./components/profile/Profile";
+import ShowProfile from "./components/profile/ShowProfile";
 import MyProfile from "./components/profile/MyProfile";
 import UpdateProfile from "./components/profile/UpdateProfile";
 import NewProject from "./components/project/NewProject"
@@ -80,16 +81,10 @@ class App extends Component {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link to={"/profiles/:profile_id"} className="nav-link">
-                <span>My Profile</span>
-              </Link>
-            </li>
-
             {currentUser && (
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
+                <Link to={`/user/${currentUser.id}`} className="nav-link">
+                  My Profile
                 </Link>
               </li>
             )}
@@ -128,7 +123,8 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profiles" component={Profile} />
             <Route exact path="/profile" component={CreateProfile} />
-            <Route exact path="/profile/:profileId" component={(props) => <MyProfile {...props} />} />
+            <Route exact path="/profile/:profileId" component={(props) => <ShowProfile {...props} />} />
+            <Route exact path="/user/:userId" component={ MyProfile } />
             <Route exact path="/profile/:profileId/update" component={(props) => <UpdateProfile {...props} />} />
             <Route exact path="/projects" component={Project} />
             <Route exact path="/project/:projectId" component={(props) => <ProjectDetails {...props} />}/>

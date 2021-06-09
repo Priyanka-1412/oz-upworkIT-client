@@ -28,8 +28,8 @@ class CreateProfile extends Component {
           redirect: null,
           previewSource: '',
           userReady: false,
-          currentUser: { username: "" }
         },
+        currentUser: {},
         tags: []
     };
     this._handleName = this._handleName.bind(this)
@@ -128,7 +128,8 @@ componentDidMount() {
       resume: this.state.resume,
       portfolio: this.state.portfolio,
       linkedIn: this.state.linkedIn,
-      previewSource: this.state.previewSource
+      previewSource: this.state.previewSource,
+      user: this.state.currentUser.id
     };
     console.log(data);
 
