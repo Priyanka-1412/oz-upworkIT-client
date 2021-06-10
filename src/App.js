@@ -16,9 +16,9 @@ import Project from "./components/project/Project";
 import MyProject from "./components/project/MyProject";
 import ProjectDetails from "./components/project/ProjectDetails"
 import UpdateProject from "./components/project/UpdateProject";
+import Search from "./components/project/Search";
 // import Profile from "./components/profile/Profile";
 import CreateProfile from "./components/profile/CreateProfile";
-import Search from "./components/search.component"
 
 const queryClient = new QueryClient();
 
@@ -56,38 +56,38 @@ class App extends Component {
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
-                Home
+                HOME
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/projects"} className="nav-link">
-                <span>Browse Jobs</span>
+                <span>BROWSE JOBS</span>
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/project"} className="nav-link">
-                <span>Post A Projects</span>
+                <span>POST A PROJECT</span>
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/profiles"} className="nav-link">
-                <span>Developers</span>
+                <span>DEVELOPER</span>
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
-                <span>Create A Profile</span>
+                <span>CREATE A PROFILE</span>
               </Link>
             </li>
 
             {currentUser && currentUser.userType === "developer" && (
               <li className="nav-item">
                 <Link to={`/user/${currentUser.id}`} className="nav-link">
-                  My Profile
+                  MY PROFILE
                 </Link>
               </li>
             )}
@@ -95,14 +95,14 @@ class App extends Component {
             {currentUser && currentUser.userType === "client" && (
               <li className="nav-item">
                 <Link to={`/projects/user/${currentUser.id}`} className="nav-link">
-                  My Job Post
+                  MY JOB POST
                 </Link>
               </li>
             )}
 
             <li className="nav-item">
               <Link to={"/search"} className="nav-link">
-                <span>Search</span>
+                <span>SEARCH</span>
               </Link>
             </li>
 
@@ -112,7 +112,7 @@ class App extends Component {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  LOGOUT
                 </a>
               </li>
             </div>
@@ -120,13 +120,13 @@ class App extends Component {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
-                  Login
+                  LOGIN
                 </Link>
               </li>
 
               <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
-                  Sign Up
+                  SIGN UP
                 </Link>
               </li>
             </div>

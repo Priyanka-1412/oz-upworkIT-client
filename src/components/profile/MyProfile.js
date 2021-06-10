@@ -25,12 +25,18 @@ function MyProfile ({ match }) {
 
   if (profile.profile.length === 0) return <p>loading</p>
     console.log(profile)
-    const { imageUrl, name, phone, email, github, skills, title, aboutme, suburb, postcode, resume, portfolio, linkedIn } = profile.profile[0];
+    const {  imageUrl, name, skills, email, phone, github, title, aboutme, suburb, postcode, resume, portfolio, linkedIn } = profile.profile[0];
 
     return (
       <>
-      <h1 style={{fontSize: '4rem', textTransform: 'uppercase'}}>{name}</h1>
-      <div style={{marginLeft: '20rem', padding: 'auto'}}>
+      <div class="container">
+          <div class="profileHeading">
+            <h1>{name}</h1>
+            <h3>{title}</h3>
+          </div>
+
+        <hr/>
+        <div class="aboutMe">
         <CloudinaryContext cloudName="didtkbpn7">
           <Image class="headshot" publicId={imageUrl}>
             <Transformation
@@ -40,31 +46,47 @@ function MyProfile ({ match }) {
               dpr="auto"
               responsive_placeholder="blank" />
         </Image>
-      </CloudinaryContext>
+        </CloudinaryContext>
 
-        <p> Title: {title}</p>
-        {profile.skills &&
+          <li class="contact">Phone Number: {phone}</li>
+          <li class="contact"><a href={email} > email</a></li>
+          <li class="contact"><a href={github} target="_blank"> Github</a></li>
+
+        </div>
+
+        <div class="profileInfo">
+          <h1>Hello,</h1>
+          <h2>A bit more about me: </h2>
+          <h5>{aboutme}</h5>
           <div>
-            <p> Skills:</p>
-            {profile.skills.map((skill) =>
-              <p>{skill}</p>
-            )}
+            {profile.skills &&
+              <div>
+                <h4> Professional Skills:</h4>
+                {profile.skills.map((skill) =>
+                  <p><span>{skill}</span></p>
+                )}
+              </div>
+            }
+          <div class="resume">
+            <p><a href={resume} target="_blank"></a>Resume</p>
           </div>
-        }
 
-        <p> Suburb: {suburb}</p>
-        <p> Suburb: {aboutme}</p>
-        <p> postcode: {postcode}</p>
-        <a> Resume: {resume}</a>
-        <a> portfolio: {portfolio}</a>
-        <a href={linkedIn} target="_blank" rel="noopener">
-          LinkedIn
-        </a>
+          <div class="linkedIn">
+            <p><a href={linkedIn} target="_blank"></a>LinkedIn</p>
+          </div>
 
-        <button id="update" onClick={handleUpdate} >Update Profile</button>
+          <div class="portfolio">
+            <p><a href={portfolio} target="_blank"></a>Portfolio</p>
+          </div>
+        </div>
+        </div>
+
+          <div>
+            <button id="update" onClick={handleUpdate} >Update Profile</button>
+          </div>
       </div>
+
       </>
     );
 }
-
 export default MyProfile;

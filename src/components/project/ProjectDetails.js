@@ -20,10 +20,17 @@ function ProjectDetails({ match }) {
 		<>
 			<h1 style={{fontSize: '4rem', textTransform: 'uppercase'}}>{name}</h1>
 			<div style={{marginLeft: '20rem', padding: 'auto'}}>
-				<p> Skills: {skills}</p>
+				{project.skills &&
+          <div>
+            <h4> Professional Skills Required:</h4>
+            {project.skills.map((skill) =>
+              <p><span>{skill}</span></p>
+            )}
+          </div>
+        }
 				<p> Description: {description}</p>
 				<p>PaymentType: {paymentType}</p>
-				<p>EstimatedBudget: {estimatedBudget}</p>
+				<p>EstimatedBudget $: {estimatedBudget}</p>
 			</div>
 
 		</>

@@ -28,7 +28,7 @@ function ShowProfile ({ match }) {
   return (
     <div class="container">
       <div>
-        <h1>{name}</h1>
+        <h1 style={{fontSize: '2rem', textTransform: 'uppercase'}}>{name}</h1>
         <h3>{title}</h3>
       </div>
 

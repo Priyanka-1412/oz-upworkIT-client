@@ -19,13 +19,15 @@ class CreateProject extends Component {
         {
           skills: [],
           name: '',
+          phone: '',
+          email: '',
           description: '',
           paymentType: '',
           estimatedBudget: 0,
           redirect: null,
           userReady: false,
-          currentUser: { username: "" }
         },
+        currentUser: {},
         tags: []
     };
 
@@ -33,6 +35,8 @@ class CreateProject extends Component {
     this._handleName = this._handleName.bind(this);
     this._handleDescription = this._handleDescription.bind(this);
     this._handleSkills = this._handleSkills.bind(this);
+    this._handlePhone = this._handlePhone.bind(this);
+    this._handleEmail = this._handleEmail.bind(this);
     this._handlePayment = this._handlePayment.bind(this);
     this._handleBudget = this._handleBudget.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -69,6 +73,12 @@ componentDidMount() {
   _handleSkills(tags) {
     this.setState({tags});
   };
+  _handlePhone(event) {
+    this.setState({phone: event.target.value});
+  };
+  _handleEmail(event) {
+    this.setState({email: event.target.value});
+  };
   // _handleSkills(event) {
   //   this.setState({skills: event.target.value})
   // };
@@ -84,11 +94,13 @@ componentDidMount() {
   _handleSubmit(event) {
     event.preventDefault();
     this.setState({
-      skills: this.state.tags,
-      name: this.state.name,
-      description: this.state.description,
-      paymentType: this.state.paymentType,
-      estimatedBudget: this.state.estimatedBudget,
+      skills: [],
+      name: '',
+      description: '',
+      paymentType: '',
+      phone: '',
+      email: '',
+      estimatedBudget: '',
       redirect: "/projects",
 
     });
@@ -98,9 +110,12 @@ componentDidMount() {
     const data = {
       skills: this.state.tags,
       name: this.state.name,
+      phone: this.state.phone,
+      email: this.state.email,
       description: this.state.description,
       paymentType: this.state.paymentType,
       estimatedBudget: this.state.estimatedBudget,
+      user: this.state.currentUser.id
     };
     console.log(data);
 
@@ -126,7 +141,7 @@ componentDidMount() {
     <div className="form-group">
       <form onSubmit={this._handleSubmit}>
         <h1>New Project</h1>
-        <h3>Project name</h3>
+        <h3>Name for your project</h3>
         <input
           className="form-control"
           onChange={this._handleName}
@@ -135,17 +150,17 @@ componentDidMount() {
           required
         />
 
-        <h3>Description</h3>
-        <input
+        <h3>Tell us more about your project</h3>
+        <textarea
           className="form-control"
           onChange={this._handleDescription}
           value={this.state.description}
           type="text"
-          placeholder="description"
+          placeholder="project description"
           required
         />
 
-        <h3>Skills</h3>
+      <h3>Skills Required</h3>
         <TagsInput
           className="form-control"
           onChange={this._handleChange}
@@ -173,7 +188,25 @@ componentDidMount() {
           onChange={this._handleBudget}
           value={this.state.estimatedBudget}
           type="text"
-          placeholder="estimatedBudget"
+          placeholder="$"
+          required
+        />
+      <h3>Phone Number</h3>
+        <input
+          className="form-control"
+          onChange={this._handlePhone}
+          value={this.state.phone}
+          type="text"
+          placeholder="Phone"
+          required
+        />
+      <h3>Email</h3>
+        <input
+          className="form-control"
+          onChange={this._handleEmail}
+          value={this.state.email}
+          type="text"
+          placeholder="email"
           required
         />
 
