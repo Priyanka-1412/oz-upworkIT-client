@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
-
+import Loading from "./Loading";
+import ProfileCard from "./ProfileCard";
 const SERVER_URL = "http://localhost:3000/profiles";
 
 class ProfileDetails extends Component {
@@ -20,7 +21,11 @@ class ProfileDetails extends Component {
           resume: '',
           portfolio: '',
           linkedIn: '',
+          github: '',
+          email: '',
+          phone: '',
           redirect: null,
+          isLoading: 1,
         },
       ],
         tags: []
@@ -40,6 +45,12 @@ componentDidMount() {
       this.setState({
         profiles: results.data
       });
+    })
+  .catch((error) => {
+        alert(error);
+        {
+          this.state.isLoading = 0;
+        }
     });
   };
 fetchProfile();
@@ -56,13 +67,20 @@ render() {
 
 const Developers = (props) => {
   return (
-    <div>
-      {props.profiles.map((profile) => (
-        <div >
-        <Link to={`profile/${profile._id}`} >
-            <p className="project__name">{profile.name}</p>
-        </Link>
-        <li className="profiles" key={profile.id} >
+    <div className="mainBlock">
+      { props.profiles.map((profile) => (
+        <ProfileCard
+          className="newsCard"
+          key={profile._id}
+          name={profile.name}
+          title={profile.title}
+          skills={profile.skills.map((skill) =>
+            <div>
+              <h10>{skill}</h10>
+            </div>
+          )}
+          redirect= {`profile/${profile._id}`}
+        >
           <CloudinaryContext cloudName="didtkbpn7">
             <Image publicId={profile.imageUrl}>
               <Transformation
@@ -74,16 +92,7 @@ const Developers = (props) => {
                 />
             </Image>
           </CloudinaryContext>
-
-          Title:{profile.title},
-          Skills:{profile.skills},
-          Suburb:{profile.suburb},
-          Postcode:{profile.postcode},
-          Resume:{profile.postcode},
-          Portfolio:{profile.portfolio},
-          LinkedIn:{profile.linkedIn}
-        </li>
-        </div>
+        </ProfileCard>
       ))}
     </div>
   );

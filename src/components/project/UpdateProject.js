@@ -3,24 +3,25 @@ import React from "react";
 import { useQuery } from "react-query";
 import { Redirect } from "react-router-dom";
 
-const SERVER_URL = "http://localhost:3000/projects";
+const SERVER_URL = "http://localhost:3000/projects/user";
 
 function UpdateProject ({ match }) {
-  const project_id = match.params.projectId;
-  const { data: project, isLoading, isError, error } = useQuery(["Project", project_id], () => axios(`${SERVER_URL}/${project_id}`).then((res) => res.data));
+  const user_id = match.params.projectId;
+  const { data: project, isLoading, isError, error } =
+  useQuery(["Project", user_id], () => axios(`${SERVER_URL}/${user_id}`).then((res) => res.data));
 
   const [redirect, setRedirect] = React.useState("")
-  const [name, setName] = React.useState(project.name);
-  const [skills, setSkills] = React.useState(project.skills);
-  const [description, setDescription] = React.useState(project.description);
-  const [paymentType, setPaymentType] = React.useState(project.paymentType);
-  const [estimatedBudget, setEstimatedBudget] = React.useState(project.estimatedBudget);
+  const [name, setName] = React.useState(project.project[0].name);
+  const [skills, setSkills] = React.useState(project.project[0].skills);
+  const [description, setDescription] = React.useState(project.project[0].description);
+  const [paymentType, setPaymentType] = React.useState(project.project[0].paymentType);
+  const [estimatedBudget, setEstimatedBudget] = React.useState(project.project[0].estimatedBudget);
 
   if (redirect) {
     return <Redirect to={redirect} />
   }
   const handleSave = (event) => {
-    setRedirect(`/profile/${profile_id}`);
+    setRedirect(`/profiles/user/${user_id}`);
   }
   const handleName = (event) => {
     setName(event.target.value)
@@ -35,6 +36,9 @@ function UpdateProject ({ match }) {
     setEstimatedBudget(event.target.value)
   }
 
+  const handlePayment = (event) => {
+    setPaymentType(event.target.value)
+  }
   if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <h1>{error}</h1>;
 
@@ -103,4 +107,4 @@ function UpdateProject ({ match }) {
   );
 }
 
-export default UpdateProfile;
+export default UpdateProject;

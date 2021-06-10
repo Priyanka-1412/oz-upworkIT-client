@@ -20,11 +20,15 @@ class CreateProfile extends Component {
           name: '',
           skills: [],
           title: '',
+          phone: '',
+          email: '',
+          aboutme: '',
           suburb: '',
           postcode: '',
           resume: '',
           portfolio: '',
           linkedIn: '',
+          github: '',
           redirect: null,
           previewSource: '',
           userReady: false,
@@ -34,7 +38,11 @@ class CreateProfile extends Component {
     };
     this._handleName = this._handleName.bind(this)
     this._handleImgeUrl = this._handleImgeUrl.bind(this);
-    this._handletitle = this._handletitle.bind(this);
+    this._handleTitle = this._handleTitle.bind(this);
+    this._handlePhone= this._handlePhone.bind(this);
+    this._handleEmail = this._handleEmail.bind(this);
+    this._handleGithub = this._handleGithub.bind(this);
+    this._handleAboutme = this._handleAboutme.bind(this);
     this._handleSuburb = this._handleSuburb.bind(this);
     this._handleSkills = this._handleSkills.bind(this);
     this._handlePostcode = this._handlePostcode.bind(this);
@@ -75,9 +83,21 @@ componentDidMount() {
         };
     //previewFile(this.state.imageUrl);
   };
-  _handletitle(event) {
+  _handleTitle(event) {
     this.setState({title: event.target.value});
   };
+  _handleAboutme(event) {
+    this.setState({title: event.target.value});
+  };
+  _handlePhone(event) {
+    this.setState({title: event.target.value});
+  }
+  _handleGithub(event) {
+    this.setState({title: event.target.value});
+  }
+  _handleEmail(event) {
+    this.setState({title: event.target.value});
+  }
   _handleSkills(tags) {
     this.setState({tags});
   };
@@ -88,7 +108,19 @@ componentDidMount() {
     this.setState({postcode: event.target.value});
   };
   _handleResume(event) {
-    this.setState({resume: event.target.value});
+    this.setState({resume: event.target.files[0]});
+    const file = event.target.files[0]
+    const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          this.setState({previewSource: reader.result});
+    // const file = event.target.files[0]
+    // const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onloadend = () => {
+    //       this.setState({previewSource: reader.result});
+    //     };
+  }
   };
   _handlePrtfolio(event) {
     this.setState({portfolio: event.target.value});
@@ -107,6 +139,7 @@ componentDidMount() {
       skills: [],
       name: '',
       imageUrl: '',
+      aboutme: '',
       title: '',
       suburb: '',
       postcode: '',
@@ -121,13 +154,17 @@ componentDidMount() {
     const data = {
       skills: this.state.tags,
       name: this.state.name,
-      imageUrl: this.state.imageUrl,
+      imageUrl: this.state.ImageUrl,
       title: this.state.title,
+      aboutme: this.state.aboutme,
+      phone: this.state.phone,
+      email: this.state.email,
       suburb: this.state.suburb,
       postcode: this.state.postcode,
       resume: this.state.resume,
       portfolio: this.state.portfolio,
       linkedIn: this.state.linkedIn,
+      github: this.state.github,
       previewSource: this.state.previewSource,
       user: this.state.currentUser.id
     };
@@ -171,8 +208,8 @@ componentDidMount() {
             <h3>Profile Picture</h3>
             <input
               className="form-control"
-              onChange={this._handleImgeUrl}
-
+              onChange={this._handleImageUrl}
+              value={this.state.resume}
               type="file"
               name="image"
               alt="imageUrl"
@@ -188,6 +225,16 @@ componentDidMount() {
               required
             />
 
+          <h3>About me</h3>
+            <input
+              className="form-control"
+              onChange={this._handleaboutme}
+              value={this.state.aboutme}
+              type="text"
+              placeholder="about me"
+              required
+            />
+
             <h3>Skills</h3>
             <TagsInput
               className="form-control"
@@ -197,6 +244,24 @@ componentDidMount() {
               placeholder="Skills "
               required
             />
+          <h3>Phone number:</h3>
+            <input
+              className="form-control"
+              onChange={this._handlePhone}
+              value={this.state.phone}
+              type="text"
+              placeholder="Skills "
+              required
+            />
+          <h3>Email</h3>
+          <input
+            className="form-control"
+            onChange={this._handleEmail}
+            value={this.state.tags}
+            type="text"
+            placeholder="Skills "
+            required
+          />
 
             <h3>Suburb</h3>
             <input
@@ -222,6 +287,8 @@ componentDidMount() {
               onChange={this._handleResume}
               value={this.state.resume}
               type="file"
+              name="resume"
+              alt="resume"
               placeholder="Resume"
             />
 
@@ -235,6 +302,15 @@ componentDidMount() {
             />
 
             <h3>Link to Portfolio</h3>
+            <input
+              className="form-control"
+              onChange={this._handlePrtfolio}
+              value={this.state.portfolio}
+              type="text"
+              placeholder="Portfolio"
+            />
+
+          <h3>Github </h3>
             <input
               className="form-control"
               onChange={this._handlePrtfolio}

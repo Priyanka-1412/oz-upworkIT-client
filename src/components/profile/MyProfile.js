@@ -23,16 +23,16 @@ function MyProfile ({ match }) {
   if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <h1>{error}</h1>;
 
-  if (!profile.profile) return <p>loading</p>
+  if (profile.profile.length === 0) return <p>loading</p>
     console.log(profile)
-    const { imageUrl, name, skills, title, suburb, postcode, resume, portfolio, linkedIn } = profile.profile[0];
+    const { imageUrl, name, phone, email, github, skills, title, aboutme, suburb, postcode, resume, portfolio, linkedIn } = profile.profile[0];
 
     return (
       <>
       <h1 style={{fontSize: '4rem', textTransform: 'uppercase'}}>{name}</h1>
       <div style={{marginLeft: '20rem', padding: 'auto'}}>
         <CloudinaryContext cloudName="didtkbpn7">
-          <Image publicId={imageUrl}>
+          <Image class="headshot" publicId={imageUrl}>
             <Transformation
               crop="scale"
               width="300"
@@ -43,12 +43,23 @@ function MyProfile ({ match }) {
       </CloudinaryContext>
 
         <p> Title: {title}</p>
-        <p> Skills: {skills}</p>
+        {profile.skills &&
+          <div>
+            <p> Skills:</p>
+            {profile.skills.map((skill) =>
+              <p>{skill}</p>
+            )}
+          </div>
+        }
+
         <p> Suburb: {suburb}</p>
+        <p> Suburb: {aboutme}</p>
         <p> postcode: {postcode}</p>
         <a> Resume: {resume}</a>
         <a> portfolio: {portfolio}</a>
-        <a> LinkedIn: {linkedIn}</a>
+        <a href={linkedIn} target="_blank" rel="noopener">
+          LinkedIn
+        </a>
 
         <button id="update" onClick={handleUpdate} >Update Profile</button>
       </div>

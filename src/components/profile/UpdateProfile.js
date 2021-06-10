@@ -19,6 +19,9 @@ function UpdateProfile ({ match }) {
   let [imageUrl, setImageUrl] = useState(profile.profile[0].imageUrl);
   let [name, setName] = useState(profile.profile[0].name);
   let [title, setTitle] = useState(profile.profile[0].title);
+  let [aboutme, setAboutme] = useState(profile.profile[0].aboutme);
+  let [phone, setPhone] = useState(profile.profile[0].phone);
+  let [email, setEmail] = useState(profile.profile[0].email);
   let [skills, setSkills] = useState(profile.profile[0].skills);
   let [suburb, setSuburb] = useState(profile.profile[0].suburb);
   let [postcode, setPostcode] = useState(profile.profile[0].postcode);
@@ -70,13 +73,25 @@ function UpdateProfile ({ match }) {
     setImageUrl(event.target.value)
   }
 
-  const handletitle = (event) => {
+  const handleTitle = (event) => {
     profile.profile[0].title = event.target.value
     setTitle(event.target.value)
   }
   const handleSkills = (event) => {
     profile.profile[0].skills = event.target.value
     setSkills(event.target.value)
+  }
+  const handleAboutme = (event) => {
+    profile.profile[0].aboutme = event.target.value
+    setAboutme(event.target.value)
+  }
+  const handlePhone = (event) => {
+    profile.profile[0].phone = event.target.value
+    setPhone(event.target.value)
+  }
+  const handleEmail = (event) => {
+    profile.profile[0].email = event.target.value
+    setEmail(event.target.value)
   }
   const handleSuburb = (event) => {
     profile.profile[0].suburb = event.target.value
@@ -130,10 +145,19 @@ function UpdateProfile ({ match }) {
         <h3>Title</h3>
         <input
           className="form-control"
-          onChange={handletitle}
+          onChange={handleTitle}
           value={title}
           type="text"
           placeholder="title"
+          required
+        />
+      <h3>About Me</h3>
+        <input
+          className="form-control"
+          onChange={handleAboutme}
+          value={aboutme}
+          type="text"
+          placeholder="About me"
           required
         />
 
@@ -147,6 +171,26 @@ function UpdateProfile ({ match }) {
           required
         />
 
+        <h3>Phone number</h3>
+          <input
+            className="form-control"
+            onChange={handlePhone}
+            value={phone}
+            type="text"
+            placeholder="contact number"
+            required
+          />
+
+        <h3>Email</h3>
+          <input
+            className="form-control"
+            onChange={handleEmail}
+            value={email}
+            type="text"
+            placeholder="contact number"
+            required
+          />
+        
         <h3>Suburb</h3>
         <input
           className="form-control"

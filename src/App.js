@@ -4,7 +4,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthService from "./services/auth.service";
-import Home from "./components/home.component";
+import Home from "./components/Home/home.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Profile from "./components/profile/Profile";
@@ -13,9 +13,12 @@ import MyProfile from "./components/profile/MyProfile";
 import UpdateProfile from "./components/profile/UpdateProfile";
 import NewProject from "./components/project/NewProject"
 import Project from "./components/project/Project";
+import MyProject from "./components/project/MyProject";
 import ProjectDetails from "./components/project/ProjectDetails"
+import UpdateProject from "./components/project/UpdateProject";
 // import Profile from "./components/profile/Profile";
 import CreateProfile from "./components/profile/CreateProfile";
+import Search from "./components/search.component"
 
 const queryClient = new QueryClient();
 
@@ -81,13 +84,28 @@ class App extends Component {
               </Link>
             </li>
 
-            {currentUser && (
+            {currentUser && currentUser.userType === "developer" && (
               <li className="nav-item">
                 <Link to={`/user/${currentUser.id}`} className="nav-link">
                   My Profile
                 </Link>
               </li>
             )}
+
+            {currentUser && currentUser.userType === "client" && (
+              <li className="nav-item">
+                <Link to={`/projects/user/${currentUser.id}`} className="nav-link">
+                  My Job Post
+                </Link>
+              </li>
+            )}
+
+            <li className="nav-item">
+              <Link to={"/search"} className="nav-link">
+                <span>Search</span>
+              </Link>
+            </li>
+
           </div>
 
           {currentUser ? (
@@ -128,7 +146,10 @@ class App extends Component {
             <Route exact path="/profile/:userId/update" component={UpdateProfile} />
             <Route exact path="/projects" component={Project} />
             <Route exact path="/project/:projectId" component={(props) => <ProjectDetails {...props} />}/>
+            <Route exact path="/projects/user/:userId" component={ MyProject } />
+            <Route exact path="/project/:userId/update" component={UpdateProject} />
             <Route exact path="/project" component={ NewProject} />
+            <Route exact path="/search" component={Search} />
           </Switch>
         </div>
       </div>
