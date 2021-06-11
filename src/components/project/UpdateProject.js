@@ -7,11 +7,17 @@ const SERVER_URL = "http://localhost:3000/projects/user";
 
 function UpdateProject ({ match }) {
   const user_id = match.params.projectId;
+
   const { data: project, isLoading, isError, error } =
   useQuery(["Project", user_id], () => axios(`${SERVER_URL}/${user_id}`).then((res) => res.data));
 
+  let data = project;
+  console.log("My project", project);
+  if (! project) project = {};
   const [redirect, setRedirect] = React.useState("")
   const [name, setName] = React.useState(project.project[0].name);
+  const [phone, setPhone] = React.useState(project.project[0].phone);
+  const [email, setEmail] = React.useState(project.project[0].email);
   const [skills, setSkills] = React.useState(project.project[0].skills);
   const [description, setDescription] = React.useState(project.project[0].description);
   const [paymentType, setPaymentType] = React.useState(project.project[0].paymentType);
@@ -20,11 +26,26 @@ function UpdateProject ({ match }) {
   if (redirect) {
     return <Redirect to={redirect} />
   }
+
+  axios.put(SERVER_URL+"/"+user_id, data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
   const handleSave = (event) => {
     setRedirect(`/profiles/user/${user_id}`);
   }
   const handleName = (event) => {
     setName(event.target.value)
+  }
+
+  const handlePhone = (event) => {
+    setPhone(event.target.value)
+  }
+
+  const handleEmail = (event) => {
+    setEmail(event.target.value)
   }
   const handleSkills = (event) => {
     setSkills(event.target.value)
@@ -38,7 +59,8 @@ function UpdateProject ({ match }) {
 
   const handlePayment = (event) => {
     setPaymentType(event.target.value)
-  }
+  };
+
   if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <h1>{error}</h1>;
 
@@ -49,7 +71,7 @@ function UpdateProject ({ match }) {
     <div className="form-group">
       <form onSubmit={this._handleSubmit}>
         <h1>Update Project</h1>
-        <h3>Project name</h3>
+        <h3>Name for your project</h3>
         <input
           className="form-control"
           onChange={handleName}
@@ -58,7 +80,7 @@ function UpdateProject ({ match }) {
           required
         />
 
-        <h3>Description</h3>
+        <h3>Tell us more about your project</h3>
         <input
           className="form-control"
           onChange={handleDescription}
@@ -68,7 +90,7 @@ function UpdateProject ({ match }) {
           required
         />
 
-        <h3>Skills</h3>
+        <h3>Skills Required</h3>
         <input
           className="form-control"
           onChange={handleSkills}
@@ -99,6 +121,24 @@ function UpdateProject ({ match }) {
           placeholder="estimatedBudget"
           required
         />
+        <h3>Phone Number</h3>
+          <input
+            className="form-control"
+            onChange={handlePhone}
+            value={phone}
+            type="text"
+            placeholder="Phone"
+            required
+          />
+        <h3>Email</h3>
+          <input
+            className="form-control"
+            onChange={handleEmail}
+            value={email}
+            type="text"
+            placeholder="email"
+            required
+          />
 
       </form>
     </div>

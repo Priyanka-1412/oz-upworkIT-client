@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 
   bodyFontStyle: {
-    fontSize: 10,
+    fontSize: 15,
   },
 });
 
@@ -57,7 +57,7 @@ export default function ProfileCard(props) {
             component="p"
             className={classes.bodyFontStyle}
           >
-            <h7>My SKills: </h7>
+            <h4 class="cardSkillsTitle">My SKills: </h4>
             {props.skills}
           </Typography>
         </CardContent>

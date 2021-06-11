@@ -2,3 +2,23 @@
 .mainAbout{
   background-color: #292f36;
 }
+.headingDiv1 {
+  display: inline-block;
+  width: 35%;
+}
+.headingDiv2 {
+  display: inline-block;
+  width: 35%;
+}
+.headingDiv3 {
+  display: inline-block;
+  width: 30%;
+}
+.homeHeading {
+  color:#1b4f72;
+  size: 1.2em;
+}
+.searchinput {
+  margin-bottom: 40px;
+  /* border: 1px solid #1b4f72; */
+}

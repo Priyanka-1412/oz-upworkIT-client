@@ -37,7 +37,7 @@ class CreateProfile extends Component {
         tags: []
     };
     this._handleName = this._handleName.bind(this)
-    this._handleImgeUrl = this._handleImgeUrl.bind(this);
+    this._handleImageUrl = this._handleImageUrl.bind(this);
     this._handleTitle = this._handleTitle.bind(this);
     this._handlePhone= this._handlePhone.bind(this);
     this._handleEmail = this._handleEmail.bind(this);
@@ -73,7 +73,7 @@ componentDidMount() {
   _handleName(event) {
     this.setState({name: event.target.value });
   };
-  _handleImgeUrl(event) {
+  _handleImageUrl(event) {
     this.setState({imageUrl: event.target.files[0]});
     const file = event.target.files[0]
     const reader = new FileReader();
@@ -87,16 +87,16 @@ componentDidMount() {
     this.setState({title: event.target.value});
   };
   _handleAboutme(event) {
-    this.setState({title: event.target.value});
+    this.setState({aboutme: event.target.value});
   };
   _handlePhone(event) {
-    this.setState({title: event.target.value});
+    this.setState({phone: event.target.value});
   }
   _handleGithub(event) {
-    this.setState({title: event.target.value});
+    this.setState({github: event.target.value});
   }
   _handleEmail(event) {
-    this.setState({title: event.target.value});
+    this.setState({email: event.target.value});
   }
   _handleSkills(tags) {
     this.setState({tags});
@@ -146,7 +146,7 @@ componentDidMount() {
       resume: '',
       portfolio: '',
       linkedIn: '',
-      redirect: "/profiles"
+      // redirect: "/profiles"
     });
   };
 
@@ -154,7 +154,7 @@ componentDidMount() {
     const data = {
       skills: this.state.tags,
       name: this.state.name,
-      imageUrl: this.state.ImageUrl,
+      imageUrl: this.state.imageUrl,
       title: this.state.title,
       aboutme: this.state.aboutme,
       phone: this.state.phone,
@@ -218,7 +218,7 @@ componentDidMount() {
             <h3>Title</h3>
             <input
               className="form-control"
-              onChange={this._handletitle}
+              onChange={this._handleTitle}
               value={this.state.title}
               type="text"
               placeholder="title"
@@ -228,7 +228,7 @@ componentDidMount() {
           <h3>About me</h3>
             <input
               className="form-control"
-              onChange={this._handleaboutme}
+              onChange={this._handleAboutme}
               value={this.state.aboutme}
               type="text"
               placeholder="about me"
@@ -250,16 +250,16 @@ componentDidMount() {
               onChange={this._handlePhone}
               value={this.state.phone}
               type="text"
-              placeholder="Skills "
+              placeholder="Phone Number "
               required
             />
           <h3>Email</h3>
           <input
             className="form-control"
             onChange={this._handleEmail}
-            value={this.state.tags}
+            value={this.state.email}
             type="text"
-            placeholder="Skills "
+            placeholder="email "
             required
           />
 
@@ -298,13 +298,13 @@ componentDidMount() {
               onChange={this._handleLinkedIn}
               value={this.state.linkedIn}
               type="text"
-              placeholder="LInkedIn"
+              placeholder="LinkedIn"
             />
 
             <h3>Link to Portfolio</h3>
             <input
               className="form-control"
-              onChange={this._handlePrtfolio}
+              onChange={this._handlePortfolio}
               value={this.state.portfolio}
               type="text"
               placeholder="Portfolio"
@@ -313,8 +313,8 @@ componentDidMount() {
           <h3>Github </h3>
             <input
               className="form-control"
-              onChange={this._handlePrtfolio}
-              value={this.state.portfolio}
+              onChange={this._handleGithub}
+              value={this.state.Github}
               type="text"
               placeholder="Portfolio"
             />

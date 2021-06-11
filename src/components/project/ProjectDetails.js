@@ -14,23 +14,29 @@ function ProjectDetails({ match }) {
 	if (isLoading) return <div className="loading">Loading...</div>;
 	if (isError) return <h1>{error}</h1>;
 
-	const { name, description, skills, paymentType, estimatedBudget, date } = project;
+	const { name, description, phone, email, skills, paymentType, estimatedBudget, datePosted } = project;
 
 	return (
 		<>
-			<h1 style={{fontSize: '4rem', textTransform: 'uppercase'}}>{name}</h1>
+			<h1 class="ProjectHeading" style={{fontSize: '2rem', textTransform: 'uppercase'}}>{name}</h1>
 			<div style={{marginLeft: '20rem', padding: 'auto'}}>
 				{project.skills &&
-          <div>
+          <div div class="skills">
             <h4> Professional Skills Required:</h4>
             {project.skills.map((skill) =>
-              <p><span>{skill}</span></p>
+              <span>{skill}</span>
             )}
           </div>
         }
-				<p> Description: {description}</p>
+				<h4> Job Description:</h4>
+				<p> {description}</p>
+
 				<p>PaymentType: {paymentType}</p>
+
 				<p>EstimatedBudget $: {estimatedBudget}</p>
+				<p><p>Contact me for more details: {phone}</p></p>
+				<p>Email me if you are interested $: {email}</p>
+				<p><p>Date posted : {datePosted} </p></p>
 			</div>
 
 		</>

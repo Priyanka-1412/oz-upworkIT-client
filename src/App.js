@@ -55,32 +55,32 @@ class App extends Component {
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              <Link to={"/"} className="nav-link">
                 HOME
               </Link>
             </li>
-
+      
             <li className="nav-item">
               <Link to={"/projects"} className="nav-link">
-                <span>BROWSE JOBS</span>
+                BROWSE JOBS
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/project"} className="nav-link">
-                <span>POST A PROJECT</span>
+                POST A PROJECT
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/profiles"} className="nav-link">
-                <span>DEVELOPER</span>
+                DEVELOPER
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
-                <span>CREATE A PROFILE</span>
+                CREATE A PROFILE
               </Link>
             </li>
 
@@ -102,7 +102,7 @@ class App extends Component {
 
             <li className="nav-item">
               <Link to={"/search"} className="nav-link">
-                <span>SEARCH</span>
+                SEARCH
               </Link>
             </li>
 
@@ -136,6 +136,7 @@ class App extends Component {
 
         <div className="container mt-3">
           <Switch>
+            <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />

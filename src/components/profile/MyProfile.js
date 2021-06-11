@@ -60,24 +60,24 @@ function MyProfile ({ match }) {
           <h5>{aboutme}</h5>
           <div>
             {profile.skills &&
-              <div>
+              <div class="skills" >
                 <h4> Professional Skills:</h4>
                 {profile.skills.map((skill) =>
-                  <p><span>{skill}</span></p>
+                  <span>{skill}</span>
                 )}
               </div>
             }
-          <div class="resume">
-            <p><a href={resume} target="_blank"></a>Resume</p>
-          </div>
+            <div class="resume">
+              <p><a href={resume} target="_blank"></a>Resume</p>
+            </div>
 
-          <div class="linkedIn">
-            <p><a href={linkedIn} target="_blank"></a>LinkedIn</p>
-          </div>
+            <div class="linkedIn">
+              <p><a href={linkedIn} target="_blank">LinkedIn</a></p>
+            </div>
 
-          <div class="portfolio">
-            <p><a href={portfolio} target="_blank"></a>Portfolio</p>
-          </div>
+            <div class="portfolio">
+              <p><a href={portfolio} target="_blank">Portfolio</a></p>
+            </div>
         </div>
         </div>
 

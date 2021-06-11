@@ -11,7 +11,8 @@ function ShowProfile ({ match }) {
   const profile_id = match.params.profileId;
   const { data: profile, isLoading, isError, error } = useQuery(["Profile", profile_id], () => axios(`${SERVER_URL}/${profile_id}`).then((res) => res.data));
 
-  const [redirect, setRedirect] = React.useState("")
+  const [redirect,
+     setRedirect] = React.useState("")
 
   if (redirect) {
     return <Redirect to={redirect} />
@@ -46,7 +47,7 @@ function ShowProfile ({ match }) {
       </CloudinaryContext>
 
         <li class="contact">Phone Number: {phone}</li>
-        <li class="contact"><a href={email} > email</a></li>
+        <li class="contact"><a href={email}>email : { email }</a></li>
         <li class="contact"><a href={github} target="_blank"> Github</a></li>
 
       </div>
@@ -57,10 +58,10 @@ function ShowProfile ({ match }) {
         <h5>{aboutme}</h5>
         <div>
         {profile.skills &&
-          <div>
+          <div class="skills">
             <h4> Professional Skills:</h4>
             {profile.skills.map((skill) =>
-              <p><span>{skill}</span></p>
+              <span>{skill}</span>
             )}
           </div>
         }
@@ -70,11 +71,11 @@ function ShowProfile ({ match }) {
         </div>
 
         <div class="linkedIn">
-          <p><a href={linkedIn} target="_blank"></a>LinkedIn</p>
+          <p><a href={linkedIn} target="_blank">LinkedIn</a></p>
         </div>
 
         <div class="portfolio">
-          <p><a href={portfolio} target="_blank"></a>Portfolio</p>
+          <p><a href={portfolio} target="_blank">Portfolio</a></p>
         </div>
       </div>
 

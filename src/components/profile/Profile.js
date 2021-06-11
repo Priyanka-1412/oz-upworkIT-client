@@ -75,8 +75,8 @@ const Developers = (props) => {
           name={profile.name}
           title={profile.title}
           skills={profile.skills.map((skill) =>
-            <div>
-              <h10>{skill}</h10>
+            <div class="skills" >
+              <p class="cardSkills">{skill}</p>
             </div>
           )}
           redirect= {`profile/${profile._id}`}
@@ -86,7 +86,7 @@ const Developers = (props) => {
               <Transformation
                 crop="scale"
                 width="300"
-                height="200"
+                height="300"
                 dpr="auto"
                 responsive_placeholder="blank"
                 />

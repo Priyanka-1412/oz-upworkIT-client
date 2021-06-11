@@ -54,23 +54,31 @@ render() {
 const ProjectList = (props) => {
   console.log(props.projects);
   return (
-    <div>
-      < Search />
+    <div class="project1" >
       {props.projects.map((project) => (
         <div >
           <Link to={`project/${project._id}`} >
-              <p className="project__name">{project.name}</p>
+            	<h4>{project.name}</h4>
+
           </Link>
 
-          <li className="projects" key={project._id}  >
-            Description:{project.description},
-            Skills:{project.skills},
-            date:{project.datePosted},
-            Contact me:{project.phone},
-            email:{project.email},
-            Payment Type:{project.paymentType},
-            Estimated Budget:{project.estimatedBudget}
-          </li>
+          <p className="projects" key={project._id}></p>
+          <h4> Job Description: </h4>
+          <p> {project.description}</p>
+            {project.skills &&
+              <div class="skills">
+                <h4> Professional Skills Required:</h4>
+                {project.skills.map((skill) =>
+                  <span>{skill}</span>
+                )}
+              </div>
+            }
+          <p> Payment Type: {project.paymentType}</p>
+          <p>Estimated Budget $ :{project.estimatedBudget}</p>
+          <p>Contact me:{project.phone}</p>
+          <a>email:{project.email}</a>
+          <p>date:{project.datePosted}</p>
+          <hr/>
         </div>
       ))}
     </div>

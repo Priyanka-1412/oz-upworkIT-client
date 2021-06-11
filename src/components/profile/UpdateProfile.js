@@ -10,7 +10,7 @@ function UpdateProfile ({ match }) {
 
   let { data: profile, isLoading, isError, error } =
   useQuery(["Profile", user_id], () => axios(`${SERVER_URL}/${user_id}`).then((res) => res.data));
-  console.log('profile', profile)
+  // console.log('profile', profile)
   let data = profile;
 
   if (! profile) profile = {};
@@ -190,7 +190,7 @@ function UpdateProfile ({ match }) {
             placeholder="contact number"
             required
           />
-        
+
         <h3>Suburb</h3>
         <input
           className="form-control"
