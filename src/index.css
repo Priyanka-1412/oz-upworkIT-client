@@ -11,8 +11,9 @@
 .mainBlock {
   display: flex;
   flex-wrap: wrap;
-  padding-top: 50px;
-  padding-left: 50px;
+  padding-top: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
 
 }
 .MuiTableCell-head {

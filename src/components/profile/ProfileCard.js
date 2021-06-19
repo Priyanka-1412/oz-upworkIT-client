@@ -12,13 +12,13 @@ import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 299,
-    minHeight: 300,
+    maxWidth: 276,
+    minHeight: 100,
     border: '1px solid #CED5DD'
   },
 
   media: {
-    height: 250,
+    height: 100,
   },
 
   fontStyle: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 
   bodyFontStyle: {
-    fontSize: 15,
+    fontSize: 14,
   },
 });
 
@@ -57,8 +57,14 @@ export default function ProfileCard(props) {
             component="p"
             className={classes.bodyFontStyle}
           >
-            <h4 class="cardSkillsTitle">My SKills: </h4>
-            {props.skills}
+          {props.skills&&
+            <div class="cardSkills">
+              <h4> My Skills </h4>
+              {props.skills.map((skill) =>
+                <span>{skill}</span>
+              )}
+            </div>
+          }
           </Typography>
         </CardContent>
       </CardActionArea>

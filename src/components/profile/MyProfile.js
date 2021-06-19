@@ -2,20 +2,25 @@ import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
+import phoneImage from "../Images/phoneImage.png"
+import emailImage from "../Images/emailImage1.png"
+import gitImage from "../Images/gitImage.png"
 
 import { Redirect } from "react-router-dom";
 
-const SERVER_URL = "http://localhost:3000/user";
+//const SERVER_URL = "http://localhost:3000/user";
+const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/user";
 
+//pass userId as an argument in MyProfilefunction and find  a profile that matches passed userId
 function MyProfile ({ match }) {
   const user_id = match.params.userId;
   const { data: profile, isLoading, isError, error } = useQuery(["Profile", user_id], () => axios(`${SERVER_URL}/${user_id}`).then((res) => res.data));
-  console.log(profile);
   const [redirect, setRedirect] = React.useState("")
 
   if (redirect) {
     return <Redirect to={redirect} />
   }
+
   const handleUpdate = (event) => {
     setRedirect(`/profile/${user_id}/update`);
   }
@@ -25,15 +30,17 @@ function MyProfile ({ match }) {
 
   if (profile.profile.length === 0) return <p>loading</p>
     console.log(profile)
+
+    //get values from profile and setState
     const {  imageUrl, name, skills, email, phone, github, title, aboutme, suburb, postcode, resume, portfolio, linkedIn } = profile.profile[0];
 
     return (
       <>
       <div class="container">
-          <div class="profileHeading">
-            <h1>{name}</h1>
-            <h3>{title}</h3>
-          </div>
+        <div class="profileHeading">
+          <h1>{name}</h1>
+          <h3>{title}</h3>
+        </div>
 
         <hr/>
         <div class="aboutMe">
@@ -45,13 +52,22 @@ function MyProfile ({ match }) {
               height="200"
               dpr="auto"
               responsive_placeholder="blank" />
-        </Image>
+          </Image>
         </CloudinaryContext>
+          <div>
+            <img id= "phoneImage" src={phoneImage} alt={ phone } height="20" width="20" />
+            <li id= "phone" class="contact">{phone}</li>
+          </div>
 
-          <li class="contact">Phone Number: {phone}</li>
-          <li class="contact"><a href={email} > email</a></li>
-          <li class="contact"><a href={github} target="_blank"> Github</a></li>
+          <div>
+            <img id= "emailImage" src={emailImage} alt={ email } height="20" width="20" />
+            <li id= "email" class="contact" href={email} >{email}</li>
+          </div>
 
+          <div>
+            <img id= "gitImage" src={gitImage} alt={ github } height="20" width="20" />
+            <a id= "git" class="contact" target="_blank" href={github}>{github}</a>
+          </div>
         </div>
 
         <div class="profileInfo">
@@ -78,14 +94,13 @@ function MyProfile ({ match }) {
             <div class="portfolio">
               <p><a href={portfolio} target="_blank">Portfolio</a></p>
             </div>
-        </div>
-        </div>
-
-          <div>
-            <button id="update" onClick={handleUpdate} >Update Profile</button>
           </div>
-      </div>
+        </div>
 
+        <div>
+          <button id="update" onClick={handleUpdate} >Update Profile</button>
+        </div>
+      </div>
       </>
     );
 }

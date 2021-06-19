@@ -1,6 +1,6 @@
 import React, { Component } from "react"; // destructuring
 import { Redirect } from "react-router-dom";
-import './home.css';
+import './Home.css';
 import Search from "../project/Search"
 
 class Home extends Component {
@@ -13,9 +13,6 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
-        <div class="searchbar">
-          <Search />
-        </div>
 
         <div className="homeDiv">
           <div className="div1">
@@ -29,14 +26,17 @@ class Home extends Component {
                 <h4>Any sized project</h4>
                 <p>Get any job done. From small one-off tasks to large, multi-stage projects.</p>
               </div>
+
               <div class="headingDiv2">
                 <h4>Flexible payment terms</h4>
                 <p>Pay your freelancers a fixed price or by the hour. All secured by the Milestone Payments system..</p>
               </div>
+
               <div class="headingDiv3">
                 <h4>Diverse talent</h4>
                 <p>Choose from expert freelancers in over 1800 skill sets, from all around the globe.</p>
               </div>
+
           </div>
           </div>
         </div>

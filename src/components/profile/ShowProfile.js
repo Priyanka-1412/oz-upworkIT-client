@@ -3,9 +3,13 @@ import React from "react";
 import { useQuery } from "react-query";
 import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 import './MyProfile.css'
+import phoneImage from "../Images/phoneImage.png"
+import emailImage from "../Images/emailImage1.png"
+import gitImage from "../Images/gitImage.png"
 import { Redirect } from "react-router-dom";
-// import background from "../Images/background.jpg"
-const SERVER_URL = "http://localhost:3000/profiles";
+
+//const SERVER_URL = "http://localhost:3000/profiles";
+const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/profiles";
 
 function ShowProfile ({ match }) {
   const profile_id = match.params.profileId;
@@ -45,11 +49,20 @@ function ShowProfile ({ match }) {
             responsive_placeholder="blank" />
       </Image>
       </CloudinaryContext>
+        <div>
+          <img id= "phoneImage" src={phoneImage} alt={ phone } height="20" width="20" />
+          <li id= "phone" class="contact">{phone}</li>
+        </div>
 
-        <li class="contact">Phone Number: {phone}</li>
-        <li class="contact"><a href={email}>email : { email }</a></li>
-        <li class="contact"><a href={github} target="_blank"> Github</a></li>
+        <div>
+          <img id= "emailImage" src={emailImage} alt={ email } height="20" width="20" />
+          <a id= "email" class="contact" href= {email} >{email}</a>
+        </div>
 
+        <div>
+          <img id= "gitImage" src={gitImage} alt={ github } height="20" width="20" />
+          <a id= "git" class="contact" target="_blank" href={github}>{github}</a>
+        </div>
       </div>
 
       <div class="profileInfo">
@@ -57,29 +70,28 @@ function ShowProfile ({ match }) {
         <h2>A bit more about me: </h2>
         <h5>{aboutme}</h5>
         <div>
-        {profile.skills &&
-          <div class="skills">
-            <h4> Professional Skills:</h4>
-            {profile.skills.map((skill) =>
-              <span>{skill}</span>
-            )}
+          {profile.skills &&
+            <div class="skills">
+              <h4> Professional Skills:</h4>
+              {profile.skills.map((skill) =>
+                <span>{skill}</span>
+              )}
+            </div>
+          }
+
+          <div class="resume">
+            <p><a href={resume} target="_blank"></a>Resume</p>
           </div>
-        }
 
-        <div class="resume">
-          <p><a href={resume} target="_blank"></a>Resume</p>
-        </div>
+          <div class="linkedIn">
+            <p><a href={linkedIn} target="_blank">LinkedIn</a></p>
+          </div>
 
-        <div class="linkedIn">
-          <p><a href={linkedIn} target="_blank">LinkedIn</a></p>
-        </div>
-
-        <div class="portfolio">
-          <p><a href={portfolio} target="_blank">Portfolio</a></p>
+          <div class="portfolio">
+            <p><a href={portfolio} target="_blank">Portfolio</a></p>
+          </div>
         </div>
       </div>
-
-    </div>
     </div>
   );
 }

@@ -1,18 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+
 .mainAbout{
   background-color: #292f36;
 }
 .headingDiv1 {
   display: inline-block;
-  width: 35%;
+  width: 30%;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 0 20px;
+  text-align: center;
+  background-color: #CDDEEF;
 }
 .headingDiv2 {
   display: inline-block;
-  width: 35%;
+  width: 30%;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 0 20px;
+  text-align: center;
+  background-color: #CDDEEF;
 }
 .headingDiv3 {
   display: inline-block;
   width: 30%;
+  border: 1px solid black;
+  border-radius: 20px;
+  text-align: center;
+  background-color: #CDDEEF;
 }
 .homeHeading {
   color:#1b4f72;
@@ -20,5 +35,4 @@
 }
 .searchinput {
   margin-bottom: 40px;
-  /* border: 1px solid #1b4f72; */
 }

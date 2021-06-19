@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-
-const SERVER_URL = "http://localhost:3000/projects/search/";
-
+import './Search.css';
+//const SERVER_URL = "http://localhost:3000/projects/search/";
+const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects/search/";
 class Search extends Component {
   constructor() {
     super();
@@ -12,6 +12,7 @@ class Search extends Component {
       searchResults: [],
       error: "",
       isLoading: 0,
+      redirect: null,
     };
     this._handleChange = this._handleChange.bind(this);
     this._submitSearch = this._submitSearch.bind(this);
@@ -20,13 +21,14 @@ class Search extends Component {
   componentDidMount() {
     this.fetchURL();
   }
+
   fetchURL() {
     let search =
       SERVER_URL +
       this.state.query;
 
     if (this.state.query !== "") {
-      this.setState({ searchResults: [], isLoading: 1 });
+      this.setState({ searchResults: [], isLoading: 1});
       axios(search)
         .then((response) => {
           console.log(response.data);
@@ -57,13 +59,13 @@ class Search extends Component {
         <form
           onSubmit={this._submitSearch}
           className="searchbox"
-          style={{ backgroundColor: "#fffbf8" }}
         >
           <input
             type="search"
             onChange={this._handleChange}
             placeholder="Example: Developer"
             className="searchinput"
+            style={{ width: 300, padding: 4, borderRadius: "0.5em"}}
           />
           <button id="search" className="searchbutton">Search</button>
         </form>
@@ -72,7 +74,6 @@ class Search extends Component {
           projectList={this.state.searchResults}
           show={this.state.isLoading}
         />
-
       </div>
     );
   }
@@ -81,22 +82,28 @@ class Search extends Component {
 const SearchList = (props) => {
   console.log(props.projectList);
   return (
-    <div>
+    <div class="searchResult">
       {props.projectList && props.projectList.map((project) => (
-        <div >
-          <Link to={`project/${project._id}`} >
-              <p className="project__name">{project.name}</p>
-          </Link>
+        <div class="searchResult">
+          <h1 class="ProjectHeading" style={{fontSize: '2rem', textTransform: 'uppercase'}}>{project.name}</h1>
+    			<div class= "projectShow" style={{marginLeft: '20rem', padding: 'auto'}}>
+    				{project.skills &&
+              <div div class="skills">
+                <h4> Professional Skills Required:</h4>
+                {project.skills.map((skill) =>
+                  <span>{skill}</span>
+                )}
+              </div>
+            }
+    				<h4> Job Description:</h4>
+    				<p> {project.description}</p>
 
-          <li className="projects" key={project._id}  >
-            Description:{project.description},
-            Skills:{project.skills},
-            date:{project.datePosted},
-            Contact me:{project.phone},
-            email:{project.email},
-            Payment Type:{project.paymentType},
-            Estimated Budget:{project.estimatedBudget}
-          </li>
+    				<h5> PaymentType: <span>{project.paymentType}</span> </h5> <br/>
+    				<h5> EstimatedBudget $: <span>{project.estimatedBudget}</span> </h5> <br/>
+    				<h5> Contact me for more details: <span>{project.email}</span> </h5> <br/>
+    				<h5> Date posted : <span>{project.datePosted}</span> </h5> <br/>
+    			</div>
+          <hr/>
         </div>
       ))}
     </div>

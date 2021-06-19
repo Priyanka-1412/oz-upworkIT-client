@@ -3,7 +3,8 @@ import React, {useState} from "react";
 import { useQuery } from "react-query";
 import { Redirect } from "react-router-dom";
 
-const SERVER_URL = "http://localhost:3000/user";
+//const SERVER_URL = "http://localhost:3000/user";
+const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/user";
 
 function UpdateProfile ({ match }) {
   const user_id = match.params.userId;
@@ -28,6 +29,7 @@ function UpdateProfile ({ match }) {
   let [resume, setResume] = useState(profile.profile[0].resume);
   let [portfolio, setPortfolio] = useState(profile.profile[0].portfolio);
   let [linkedIn, setLinkedIn] = useState(profile.profile[0].linkedIn);
+  let [github, setGithub] = useState(profile.profile[0].github);
   let [previewSource, setPreviewSource] = useState("");
 
   if (redirect) {
@@ -114,6 +116,11 @@ function UpdateProfile ({ match }) {
     setLinkedIn(event.target.value)
   };
 
+  const handleGithub = (event) => {
+    profile.profile[0].github = event.target.value
+    setLinkedIn(event.target.value)
+  };
+
   if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <h1>{error}</h1>;
 
@@ -151,7 +158,7 @@ function UpdateProfile ({ match }) {
           placeholder="title"
           required
         />
-      <h3>About Me</h3>
+        <h3>About Me</h3>
         <input
           className="form-control"
           onChange={handleAboutme}
@@ -171,7 +178,7 @@ function UpdateProfile ({ match }) {
           required
         />
 
-        <h3>Phone number</h3>
+          <h3>Phone number</h3>
           <input
             className="form-control"
             onChange={handlePhone}
@@ -181,7 +188,7 @@ function UpdateProfile ({ match }) {
             required
           />
 
-        <h3>Email</h3>
+          <h3>Email</h3>
           <input
             className="form-control"
             onChange={handleEmail}
@@ -218,7 +225,7 @@ function UpdateProfile ({ match }) {
           placeholder="Resume"
         />
 
-      <h3>Connect with LinkedIn</h3>
+        <h3>Connect with LinkedIn</h3>
         <input
           className="form-control"
           onChange={handleLinkedIn}
@@ -236,6 +243,14 @@ function UpdateProfile ({ match }) {
           placeholder="Portfolio"
         />
 
+        <h3>Link to Github</h3>
+        <input
+          className="form-control"
+          onChange={handleGithub}
+          value={github}
+          type="text"
+          placeholder="Portfolio"
+        />
       </form>
     </div>
       <button id="save" onClick={handleSave} >Save Changes</button>

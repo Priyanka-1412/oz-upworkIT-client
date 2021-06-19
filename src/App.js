@@ -4,7 +4,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthService from "./services/auth.service";
-import Home from "./components/Home/home.component";
+import Home from "./components/home/Home";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Profile from "./components/profile/Profile";
@@ -59,7 +59,7 @@ class App extends Component {
                 HOME
               </Link>
             </li>
-      
+
             <li className="nav-item">
               <Link to={"/projects"} className="nav-link">
                 BROWSE JOBS
@@ -100,12 +100,6 @@ class App extends Component {
               </li>
             )}
 
-            <li className="nav-item">
-              <Link to={"/search"} className="nav-link">
-                SEARCH
-              </Link>
-            </li>
-
           </div>
 
           {currentUser ? (
@@ -131,10 +125,14 @@ class App extends Component {
               </li>
             </div>
           )}
-
         </nav>
 
+        <div class="searchbar">
+            <Search />
+        </div>
+
         <div className="container mt-3">
+
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />

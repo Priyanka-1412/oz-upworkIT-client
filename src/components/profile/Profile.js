@@ -4,7 +4,9 @@ import {Link} from "react-router-dom";
 import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 import Loading from "./Loading";
 import ProfileCard from "./ProfileCard";
-const SERVER_URL = "http://localhost:3000/profiles";
+
+//const SERVER_URL = "http://localhost:3000/profiles";
+const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/profiles";
 
 class ProfileDetails extends Component {
   constructor() {
@@ -31,11 +33,6 @@ class ProfileDetails extends Component {
         tags: []
     };
 }
-//
-// delete(project){
-//   const data = this.state.projects.filter(i => i.id !== project._id)
-//   this.setState({project})
-// }
 
 componentDidMount() {
 

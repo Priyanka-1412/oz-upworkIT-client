@@ -3,12 +3,10 @@ import axios from "axios";
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 import AuthService from "../../services/auth.service";
-
-// import { WithContext as ReactTags } from 'react-tag-input';
-// import Form from 'react-bootstrap/Form';
 import { Redirect } from "react-router-dom";
 
-const SERVER_URL = "http://localhost:3000/projects";
+//const SERVER_URL = "http://localhost:3000/projects";
+const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects";
 
 class CreateProject extends Component {
   constructor() {
@@ -79,18 +77,12 @@ componentDidMount() {
   _handleEmail(event) {
     this.setState({email: event.target.value});
   };
-  // _handleSkills(event) {
-  //   this.setState({skills: event.target.value})
-  // };
-
   _handlePayment(event) {
     this.setState({paymentType: event.target.value})
   };
-
   _handleBudget(event) {
     this.setState({estimatedBudget: event.target.value})
   };
-
   _handleSubmit(event) {
     event.preventDefault();
     this.setState({
@@ -102,10 +94,8 @@ componentDidMount() {
       email: '',
       estimatedBudget: '',
       redirect: "/projects",
-
     });
   };
-
   _handleCreate(event) {
     const data = {
       skills: this.state.tags,
@@ -117,7 +107,6 @@ componentDidMount() {
       estimatedBudget: this.state.estimatedBudget,
       user: this.state.currentUser.id
     };
-    console.log(data);
 
     axios.post(SERVER_URL, data, {
       headers: {
@@ -125,6 +114,7 @@ componentDidMount() {
       },
     });
   }
+
   render() {
 
     if (this.state.redirect) {
@@ -135,91 +125,88 @@ componentDidMount() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
     }
+
     return (
-    <div>
-    {(this.state.userReady) ?
-    <div className="form-group">
-      <form onSubmit={this._handleSubmit}>
-        <h1>New Project</h1>
-        <h3>Name for your project</h3>
-        <input
-          className="form-control"
-          onChange={this._handleName}
-          value={this.state.name}
-          placeholder="name"
-          required
-        />
+      <div>
+      {(this.state.userReady) ?
+        <div className="form-group">
+          <form onSubmit={this._handleSubmit}>
+            <h1>New Project</h1>
+            <h3>Name for your project</h3>
+            <input
+              className="form-control"
+              onChange={this._handleName}
+              value={this.state.name}
+              placeholder="name"
+              required
+            />
 
-        <h3>Tell us more about your project</h3>
-        <textarea
-          className="form-control"
-          onChange={this._handleDescription}
-          value={this.state.description}
-          type="text"
-          placeholder="project description"
-          required
-        />
+            <h3>Tell us more about your project</h3>
+            <textarea
+              className="form-control"
+              onChange={this._handleDescription}
+              value={this.state.description}
+              type="text"
+              placeholder="project description"
+              required
+            />
 
-      <h3>Skills Required</h3>
-        <TagsInput
-          className="form-control"
-          onChange={this._handleChange}
-          value={this.state.tags}
-          type="text"
-          placeholder="Skills "
-          required
-        />
+            <h3>Skills Required</h3>
+            <TagsInput
+              className="form-control"
+              onChange={this._handleChange}
+              value={this.state.tags}
+              type="text"
+              placeholder="Skills "
+              required
+            />
 
-        <h3>Payment Type</h3>
-        <select className="form-control"
-                onChange={this._handlePayment}
-                value={this.state.paymentType}
-                type="text"
-                placeholder="payment"
-                required>
-          <option value="" >Select paymentType</option>
-          <option value="Fixed-Price">Fixed Price</option>
-          <option value="Hourly-Rate">Hourly Rate</option>
-        </select>
+            <h3>Payment Type</h3>
+            <select className="form-control"
+              onChange={this._handlePayment}
+              value={this.state.paymentType}
+              type="text"
+              placeholder="payment"
+              required>
+              <option value="" >Select paymentType</option>
+              <option value="Fixed-Price">Fixed Price</option>
+              <option value="Hourly-Rate">Hourly Rate</option>
+            </select>
 
-        <h3>Estimated Budget</h3>
-        <input
-          className="form-control"
-          onChange={this._handleBudget}
-          value={this.state.estimatedBudget}
-          type="text"
-          placeholder="$"
-          required
-        />
-      <h3>Phone Number</h3>
-        <input
-          className="form-control"
-          onChange={this._handlePhone}
-          value={this.state.phone}
-          type="text"
-          placeholder="Phone"
-          required
-        />
-      <h3>Email</h3>
-        <input
-          className="form-control"
-          onChange={this._handleEmail}
-          value={this.state.email}
-          type="text"
-          placeholder="email"
-          required
-        />
+            <h3>Estimated Budget</h3>
+            <input
+              className="form-control"
+              onChange={this._handleBudget}
+              value={this.state.estimatedBudget}
+              type="number"
+              placeholder="$"
+              required
+            />
 
-        <input
-          className="form-control"
-          id="submit"
-          onClick={this._handleCreate}
-          type="submit"
-          value="Save"
-        />
-      </form>
-    </div>: null}
-    </div>
+            <h3>Phone Number</h3>
+            <input
+              className="form-control"
+              onChange={this._handlePhone}
+              value={this.state.phone}
+              type="number"
+              placeholder="Phone"
+              required
+            />
+
+            <h3>Email</h3>
+            <input
+              className="form-control"
+              onChange={this._handleEmail}
+              value={this.state.email}
+              type="email"
+              placeholder="email"
+              required
+            />
+
+          <button id="submit" onClick={this._handleCreate} >Post Project</button>
+          </form>
+        </div>: null}
+      </div>
   );
   }
 }

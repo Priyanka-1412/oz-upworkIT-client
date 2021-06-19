@@ -8,7 +8,8 @@ import 'react-tagsinput/react-tagsinput.css';
 
 import { Redirect } from "react-router-dom";
 
-const SERVER_URL = "http://localhost:3000/profiles";
+//const SERVER_URL = "http://localhost:3000/profiles";
+const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/profiles";
 
 class CreateProfile extends Component {
   constructor() {
@@ -111,16 +112,10 @@ componentDidMount() {
     this.setState({resume: event.target.files[0]});
     const file = event.target.files[0]
     const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-          this.setState({previewSource: reader.result});
-    // const file = event.target.files[0]
-    // const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onloadend = () => {
-    //       this.setState({previewSource: reader.result});
-    //     };
-  }
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+      this.setState({previewSource: reader.result});
+      }
   };
   _handlePrtfolio(event) {
     this.setState({portfolio: event.target.value});
@@ -131,7 +126,6 @@ componentDidMount() {
   _handleChange(tags) {
     this.setState({tags});
   };
-
   _handleSubmit(event) {
     event.preventDefault();
 
@@ -146,7 +140,7 @@ componentDidMount() {
       resume: '',
       portfolio: '',
       linkedIn: '',
-      // redirect: "/profiles"
+      redirect: "/profiles"
     });
   };
 
@@ -168,7 +162,6 @@ componentDidMount() {
       previewSource: this.state.previewSource,
       user: this.state.currentUser.id
     };
-    console.log(data);
 
     axios.post(SERVER_URL, data, {
       headers: {
@@ -189,155 +182,149 @@ componentDidMount() {
     }
 
     return (
-    <div>
-      {(this.state.userReady) ?
+      <div>
+        {(this.state.userReady) ?
 
-        <div className="form-group">
-          <form onSubmit={this._handleSubmit}>
-            <h1>Profile</h1>
+          <div className="form-group">
+            <form onSubmit={this._handleSubmit}>
+              <h1>Profile</h1>
 
-            <h3>Name</h3>
+              <h3>Name</h3>
+              <input
+                className="form-control"
+                onChange={this._handleName}
+                value={this.state.name}
+                placeholder="name"
+                required
+              />
+
+              <h3>Profile Picture</h3>
+              <input
+                className="form-control"
+                onChange={this._handleImageUrl}
+                value={this.state.resume}
+                type="file"
+                name="image"
+                alt="imageUrl"
+              />
+
+              <h3>Title</h3>
+              <input
+                className="form-control"
+                onChange={this._handleTitle}
+                value={this.state.title}
+                type="text"
+                placeholder="title"
+                required
+              />
+
+            <h3>About me</h3>
+              <input
+                className="form-control"
+                onChange={this._handleAboutme}
+                value={this.state.aboutme}
+                type="text"
+                placeholder="about me"
+                required
+              />
+
+              <h3>Skills</h3>
+              <TagsInput
+                className="form-control"
+                onChange={this._handleChange}
+                value={this.state.tags}
+                type="text"
+                placeholder="Skills "
+                required
+              />
+            <h3>Phone number:</h3>
+              <input
+                className="form-control"
+                onChange={this._handlePhone}
+                value={this.state.phone}
+                type="text"
+                placeholder="Phone Number "
+                required
+              />
+            <h3>Email</h3>
             <input
               className="form-control"
-              onChange={this._handleName}
-              value={this.state.name}
-              placeholder="name"
+              onChange={this._handleEmail}
+              value={this.state.email}
+              type="text"
+              placeholder="email "
               required
             />
 
-            <h3>Profile Picture</h3>
-            <input
-              className="form-control"
-              onChange={this._handleImageUrl}
-              value={this.state.resume}
-              type="file"
-              name="image"
-              alt="imageUrl"
-            />
+              <h3>Suburb</h3>
+              <input
+                className="form-control"
+                onChange={this._handleSuburb}
+                value={this.state.suburb}
+                type="text"
+                placeholder="Suburb"
+              />
 
-            <h3>Title</h3>
-            <input
-              className="form-control"
-              onChange={this._handleTitle}
-              value={this.state.title}
-              type="text"
-              placeholder="title"
-              required
-            />
+              <h3>Postcode</h3>
+              <input
+                className="form-control"
+                onChange={this._handlePostcode}
+                value={this.state.postcode}
+                type="text"
+                placeholder="Postcode"
+              />
 
-          <h3>About me</h3>
-            <input
-              className="form-control"
-              onChange={this._handleAboutme}
-              value={this.state.aboutme}
-              type="text"
-              placeholder="about me"
-              required
-            />
+              <h3>Upload Your Resume</h3>
+              <input
+                className="form-control"
+                onChange={this._handleResume}
+                value={this.state.resume}
+                type="file"
+                name="resume"
+                alt="resume"
+                placeholder="Resume"
+              />
 
-            <h3>Skills</h3>
-            <TagsInput
-              className="form-control"
-              onChange={this._handleChange}
-              value={this.state.tags}
-              type="text"
-              placeholder="Skills "
-              required
-            />
-          <h3>Phone number:</h3>
-            <input
-              className="form-control"
-              onChange={this._handlePhone}
-              value={this.state.phone}
-              type="text"
-              placeholder="Phone Number "
-              required
-            />
-          <h3>Email</h3>
-          <input
-            className="form-control"
-            onChange={this._handleEmail}
-            value={this.state.email}
-            type="text"
-            placeholder="email "
-            required
-          />
+            <h3>Connect with LinkedIn</h3>
+              <input
+                className="form-control"
+                onChange={this._handleLinkedIn}
+                value={this.state.linkedIn}
+                type="text"
+                placeholder="LinkedIn"
+              />
 
-            <h3>Suburb</h3>
-            <input
-              className="form-control"
-              onChange={this._handleSuburb}
-              value={this.state.suburb}
-              type="text"
-              placeholder="Suburb"
-            />
+              <h3>Link to Portfolio</h3>
+              <input
+                className="form-control"
+                onChange={this._handlePortfolio}
+                value={this.state.portfolio}
+                type="text"
+                placeholder="Portfolio"
+              />
 
-            <h3>Postcode</h3>
-            <input
-              className="form-control"
-              onChange={this._handlePostcode}
-              value={this.state.postcode}
-              type="text"
-              placeholder="Postcode"
-            />
+            <h3>Github </h3>
+              <input
+                className="form-control"
+                onChange={this._handleGithub}
+                value={this.state.github}
+                type="text"
+                placeholder="Portfolio"
+              />
+            <button id="submit" onClick={this._handleCreate} >Create Profile</button>
 
-            <h3>Upload Your Resume</h3>
-            <input
-              className="form-control"
-              onChange={this._handleResume}
-              value={this.state.resume}
-              type="file"
-              name="resume"
-              alt="resume"
-              placeholder="Resume"
-            />
+            </form>
 
-          <h3>Connect with LinkedIn</h3>
-            <input
-              className="form-control"
-              onChange={this._handleLinkedIn}
-              value={this.state.linkedIn}
-              type="text"
-              placeholder="LinkedIn"
-            />
-
-            <h3>Link to Portfolio</h3>
-            <input
-              className="form-control"
-              onChange={this._handlePortfolio}
-              value={this.state.portfolio}
-              type="text"
-              placeholder="Portfolio"
-            />
-
-          <h3>Github </h3>
-            <input
-              className="form-control"
-              onChange={this._handleGithub}
-              value={this.state.Github}
-              type="text"
-              placeholder="Portfolio"
-            />
-
-            <input
-              className="form-control"
-              id="submit"
-              onClick={this._handleCreate}
-              type="submit"
-              value="Create"
-            />
-          </form>
-
-          {this.state.previewSource && (
-            <img
-                src={this.state.previewSource}
-                alt="chosen"
-                style={{ height: '300px' }}
-            />
-          )}
-        </div>: null}
-  </div>
-  );
+            {this.state.previewSource && (
+              <img
+                  src={this.state.previewSource}
+                  alt="chosen"
+                  style={{ height: '300px' }}
+              />
+            )}
+          </div>: null}
+        </div>
+    );
   }
 }
 export default CreateProfile;
