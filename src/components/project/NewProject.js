@@ -6,7 +6,8 @@ import AuthService from "../../services/auth.service";
 import { Redirect } from "react-router-dom";
 
 //const SERVER_URL = "http://localhost:3000/projects";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects";
+//const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/projects";
 
 class CreateProject extends Component {
   constructor() {

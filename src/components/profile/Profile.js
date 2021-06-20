@@ -5,8 +5,7 @@ import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 import Loading from "./Loading";
 import ProfileCard from "./ProfileCard";
 
-//const SERVER_URL = "http://localhost:3000/profiles";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/profiles";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/profiles";
 
 class ProfileDetails extends Component {
   constructor() {
@@ -37,6 +36,7 @@ class ProfileDetails extends Component {
 componentDidMount() {
 
   const fetchProfile = () => {
+
     axios.get(SERVER_URL).then((results) => {
       console.log(results);
       this.setState({

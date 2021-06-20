@@ -6,7 +6,8 @@ import phoneImage from "../Images/phoneImage.png"
 import emailImage from "../Images/emailImage1.png"
 
 //const SERVER_URL = "http://localhost:3000/projects";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects";
+//const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/projects";
 
 function ProjectDetails({ match }) {
 

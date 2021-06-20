@@ -9,7 +9,7 @@ import 'react-tagsinput/react-tagsinput.css';
 import { Redirect } from "react-router-dom";
 
 //const SERVER_URL = "http://localhost:3000/profiles";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/profiles";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/profiles";
 
 class CreateProfile extends Component {
   constructor() {

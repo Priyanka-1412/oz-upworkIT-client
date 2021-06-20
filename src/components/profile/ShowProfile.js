@@ -9,7 +9,8 @@ import gitImage from "../Images/gitImage.png"
 import { Redirect } from "react-router-dom";
 
 //const SERVER_URL = "http://localhost:3000/profiles";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/profiles";
+//const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/profiles";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/profiles";
 
 function ShowProfile ({ match }) {
   const profile_id = match.params.profileId;

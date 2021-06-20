@@ -1,7 +1,9 @@
 import axios from "axios";
 
 // const API_URL = "http://localhost:3000/api/auth/";
-const API_URL = 'https://priyankapatel-oz-upwork.herokuapp.com/api/auth/';
+//const API_URL = 'https://priyankapatel-oz-upwork.herokuapp.com/api/auth/';
+const API_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/api/auth/";
+
 class AuthService {
   login(username, password) {
     return axios

@@ -9,7 +9,8 @@ import gitImage from "../Images/gitImage.png"
 import { Redirect } from "react-router-dom";
 
 //const SERVER_URL = "http://localhost:3000/user";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/user";
+//const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/user";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/user";
 
 //pass userId as an argument in MyProfilefunction and find  a profile that matches passed userId
 function MyProfile ({ match }) {

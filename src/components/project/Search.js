@@ -3,7 +3,9 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import './Search.css';
 //const SERVER_URL = "http://localhost:3000/projects/search/";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects/search/";
+//const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects/search/";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/projects/search/";
+
 class Search extends Component {
   constructor() {
     super();

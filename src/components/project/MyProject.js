@@ -6,7 +6,8 @@ import { Redirect } from "react-router-dom";
 import {Link} from "react-router-dom";
 
 //const SERVER_URL = "http://localhost:3000/projects/user";
-const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects/user";
+//const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects/user";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/projects/user";
 
 function MyProjectDetails({ match }) {
 

@@ -4,7 +4,8 @@ import { useQuery } from "react-query";
 import { Redirect } from "react-router-dom";
 
 //const SERVER_URL = "http://localhost:3000/projects/user";
- const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects/user";
+//const SERVER_URL = "https://priyankapatel-oz-upwork.herokuapp.com/projects/user";
+const SERVER_URL = process.env.REACT_APP_SERVER_ENDPOINT + "/projects/user";
 
 function UpdateProject ({ match }) {
   const user_id = match.params.userId;
